@@ -7,10 +7,34 @@
 //
 
 import UIKit
+import Combine
+
+class SearchViewModel {
+    @Published var artists : [Artist]?
+    var term : String! { didSet {
+        getArtists()
+        }}
+    
+    func getArtists() {
+        ApiService.searchArtists(term) { (result: (Result<ApiResponse<Artist>, APIError>)) in
+            switch result {
+            case .success(let response):
+                self.artists = response.data == nil ? [Artist]() : response.data
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+}
 
 class SearchVC: UIViewController {
 
-    var artists: [Artist]?
+    var viewModel: SearchViewModel
+    var cancelable : AnyCancellable?
+    
+    var artists: [Artist]? { didSet {
+        refreshViews()
+        }}
     
     var mainCoordinator: MainCoordinator
     let artistCell = String(describing: ArtistTableViewCell.self)
@@ -36,11 +60,13 @@ class SearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
+        bindViewModel()
     }
 
     // MARK: Initialization
-    init(mainCoordinator: MainCoordinator) {
+    init(mainCoordinator: MainCoordinator, viewModel: SearchViewModel) {
         self.mainCoordinator = mainCoordinator
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -52,22 +78,16 @@ class SearchVC: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
-    
-    
-    
-    
-    
-    func testAPI(searchTerm: String) {
+    func search() {
         tableView.showLoader()
-        ApiService.searchArtists(searchTerm) { (result: (Result<ApiResponse<Artist>, APIError>)) in
-            switch result {
-            case .success(let response):
-                self.artists = response.data
-                self.refreshViews()
-            case .failure(let error):
-                print(error)
-            }
-        }
+        viewModel.term = searchBar.searchTextField.text ?? ""
+    }
+    
+    func bindViewModel() {
+        cancelable = viewModel.$artists
+        .delay(for: .milliseconds(500), scheduler: DispatchQueue.main)
+        .receive(on: DispatchQueue.main)
+        .assign(to: \.artists, on: self)
     }
     
     func refreshViews() {
@@ -77,7 +97,10 @@ class SearchVC: UIViewController {
             self.tableView.hideLoader()
             
             // Modifying visibility of tableView and no results Label
-            if self.artists?.isEmpty ?? true {
+            if self.artists == nil {
+                self.noResultsLabel.alpha = 0
+                self.tableView.alpha = 0
+            } else if self.artists?.isEmpty ?? true {
                 self.noResultsLabel.alpha = 1
                 self.tableView.alpha = 0
             } else {
@@ -121,11 +144,11 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
 
 extension SearchVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        testAPI(searchTerm: searchBar.searchTextField.text ?? "")
+        search()
         searchBar.resignFirstResponder()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        testAPI(searchTerm: searchBar.searchTextField.text ?? "")
+        search()
     }
 }
