@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchVC" customModule="DeezerAPITest" customModuleProvider="target">
+            <connections>
+                <outlet property="noResultsLabel" destination="Kiu-1j-yEU" id="pzs-sO-4Pp"/>
+                <outlet property="searchBar" destination="jOC-bh-UfO" id="uBH-Rp-CTR"/>
+                <outlet property="tableView" destination="1kO-mG-pcR" id="Mep-E2-JFu"/>
+                <outlet property="view" destination="iN0-l3-epB" id="T3A-p5-Bcl"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="jOC-bh-UfO">
+                    <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1kO-mG-pcR">
+                    <rect key="frame" x="0.0" y="100" width="414" height="796"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kiu-1j-yEU">
+                    <rect key="frame" x="186" y="443" width="42" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1kO-mG-pcR" secondAttribute="trailing" id="0xN-Ug-OwY"/>
+                <constraint firstItem="jOC-bh-UfO" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="3f7-As-QdO"/>
+                <constraint firstItem="jOC-bh-UfO" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="I6f-vZ-kuj"/>
+                <constraint firstItem="Kiu-1j-yEU" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="MeV-la-eA1"/>
+                <constraint firstItem="Kiu-1j-yEU" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="RAU-nS-cmP"/>
+                <constraint firstItem="1kO-mG-pcR" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Wub-WM-3wH"/>
+                <constraint firstItem="1kO-mG-pcR" firstAttribute="top" secondItem="jOC-bh-UfO" secondAttribute="bottom" symbolic="YES" id="aji-a0-tR0"/>
+                <constraint firstAttribute="bottom" secondItem="1kO-mG-pcR" secondAttribute="bottom" id="efw-5Z-Fiu"/>
+                <constraint firstItem="jOC-bh-UfO" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="vhE-ft-f98"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="139" y="153"/>
+        </view>
+    </objects>
+</document>

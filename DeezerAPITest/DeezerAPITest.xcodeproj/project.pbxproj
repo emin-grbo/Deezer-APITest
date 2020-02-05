@@ -16,6 +16,16 @@
 		D76413FB23E96F0E00763DE2 /* DeezerAPITestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76413FA23E96F0E00763DE2 /* DeezerAPITestUITests.swift */; };
 		D764140923E9720800763DE2 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D764140823E9720800763DE2 /* MainCoordinator.swift */; };
 		D764140B23E973BC00763DE2 /* SearchVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D764140A23E973BC00763DE2 /* SearchVC.xib */; };
+		D796375723E98F8900F6707D /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D796375623E98F8900F6707D /* ApiService.swift */; };
+		D796375923E995F700F6707D /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D796375823E995F700F6707D /* ApiResponse.swift */; };
+		D796375B23E9A11800F6707D /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D796375A23E9A11800F6707D /* ApiRequest.swift */; };
+		D796375D23E9A42200F6707D /* ApiService+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = D796375C23E9A42200F6707D /* ApiService+Search.swift */; };
+		D796376123E9B26100F6707D /* ArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D796375F23E9B26100F6707D /* ArtistTableViewCell.swift */; };
+		D796376223E9B26100F6707D /* ArtistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D796376023E9B26100F6707D /* ArtistTableViewCell.xib */; };
+		D796376423E9B49C00F6707D /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D796376323E9B49C00F6707D /* UIColor+Extension.swift */; };
+		D796376A23E9C1AE00F6707D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D796376923E9C1AE00F6707D /* UIImage+Extension.swift */; };
+		D796376C23E9C2F700F6707D /* ViewLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D796376B23E9C2F700F6707D /* ViewLoader.swift */; };
+		D796376E23E9E5A400F6707D /* UISearchBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D796376D23E9E5A400F6707D /* UISearchBar+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +61,16 @@
 		D76413FC23E96F0E00763DE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D764140823E9720800763DE2 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		D764140A23E973BC00763DE2 /* SearchVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchVC.xib; sourceTree = "<group>"; };
+		D796375623E98F8900F6707D /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		D796375823E995F700F6707D /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
+		D796375A23E9A11800F6707D /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
+		D796375C23E9A42200F6707D /* ApiService+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiService+Search.swift"; sourceTree = "<group>"; };
+		D796375F23E9B26100F6707D /* ArtistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTableViewCell.swift; sourceTree = "<group>"; };
+		D796376023E9B26100F6707D /* ArtistTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtistTableViewCell.xib; sourceTree = "<group>"; };
+		D796376323E9B49C00F6707D /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		D796376923E9C1AE00F6707D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		D796376B23E9C2F700F6707D /* ViewLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLoader.swift; sourceTree = "<group>"; };
+		D796376D23E9E5A400F6707D /* UISearchBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,11 +121,11 @@
 		D76413D723E96F0D00763DE2 /* DeezerAPITest */ = {
 			isa = PBXGroup;
 			children = (
-				D76413D823E96F0D00763DE2 /* AppDelegate.swift */,
-				D76413DA23E96F0D00763DE2 /* SceneDelegate.swift */,
-				D76413DC23E96F0D00763DE2 /* SearchVC.swift */,
-				D764140A23E973BC00763DE2 /* SearchVC.xib */,
-				D764140823E9720800763DE2 /* MainCoordinator.swift */,
+				D796376823E9B8C000F6707D /* BASE */,
+				D796375E23E9B0B700F6707D /* ApiService */,
+				D796376623E9B86D00F6707D /* Search */,
+				D796376523E9B86300F6707D /* TableCells */,
+				D796376723E9B87B00F6707D /* Extensions */,
 				D76413E123E96F0E00763DE2 /* Assets.xcassets */,
 				D76413E323E96F0E00763DE2 /* LaunchScreen.storyboard */,
 				D76413E623E96F0E00763DE2 /* Info.plist */,
@@ -129,6 +149,56 @@
 				D76413FC23E96F0E00763DE2 /* Info.plist */,
 			);
 			path = DeezerAPITestUITests;
+			sourceTree = "<group>";
+		};
+		D796375E23E9B0B700F6707D /* ApiService */ = {
+			isa = PBXGroup;
+			children = (
+				D796375623E98F8900F6707D /* ApiService.swift */,
+				D796375A23E9A11800F6707D /* ApiRequest.swift */,
+				D796375823E995F700F6707D /* ApiResponse.swift */,
+				D796375C23E9A42200F6707D /* ApiService+Search.swift */,
+			);
+			path = ApiService;
+			sourceTree = "<group>";
+		};
+		D796376523E9B86300F6707D /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
+				D796375F23E9B26100F6707D /* ArtistTableViewCell.swift */,
+				D796376023E9B26100F6707D /* ArtistTableViewCell.xib */,
+			);
+			path = TableCells;
+			sourceTree = "<group>";
+		};
+		D796376623E9B86D00F6707D /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				D76413DC23E96F0D00763DE2 /* SearchVC.swift */,
+				D764140A23E973BC00763DE2 /* SearchVC.xib */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		D796376723E9B87B00F6707D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D796376323E9B49C00F6707D /* UIColor+Extension.swift */,
+				D796376D23E9E5A400F6707D /* UISearchBar+Extension.swift */,
+				D796376B23E9C2F700F6707D /* ViewLoader.swift */,
+				D796376923E9C1AE00F6707D /* UIImage+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D796376823E9B8C000F6707D /* BASE */ = {
+			isa = PBXGroup;
+			children = (
+				D76413D823E96F0D00763DE2 /* AppDelegate.swift */,
+				D76413DA23E96F0D00763DE2 /* SceneDelegate.swift */,
+				D764140823E9720800763DE2 /* MainCoordinator.swift */,
+			);
+			path = BASE;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +307,7 @@
 			files = (
 				D76413E523E96F0E00763DE2 /* LaunchScreen.storyboard in Resources */,
 				D76413E223E96F0E00763DE2 /* Assets.xcassets in Resources */,
+				D796376223E9B26100F6707D /* ArtistTableViewCell.xib in Resources */,
 				D764140B23E973BC00763DE2 /* SearchVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,9 +334,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				D76413DD23E96F0D00763DE2 /* SearchVC.swift in Sources */,
+				D796375723E98F8900F6707D /* ApiService.swift in Sources */,
 				D764140923E9720800763DE2 /* MainCoordinator.swift in Sources */,
+				D796375923E995F700F6707D /* ApiResponse.swift in Sources */,
+				D796376123E9B26100F6707D /* ArtistTableViewCell.swift in Sources */,
+				D796376C23E9C2F700F6707D /* ViewLoader.swift in Sources */,
 				D76413D923E96F0D00763DE2 /* AppDelegate.swift in Sources */,
+				D796375B23E9A11800F6707D /* ApiRequest.swift in Sources */,
+				D796376E23E9E5A400F6707D /* UISearchBar+Extension.swift in Sources */,
+				D796375D23E9A42200F6707D /* ApiService+Search.swift in Sources */,
 				D76413DB23E96F0D00763DE2 /* SceneDelegate.swift in Sources */,
+				D796376A23E9C1AE00F6707D /* UIImage+Extension.swift in Sources */,
+				D796376423E9B49C00F6707D /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

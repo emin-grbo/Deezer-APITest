@@ -19,7 +19,6 @@ class MainCoordinator {
     func start() {
         let vc = SearchVC(mainCoordinator: self)
         navigationController.pushViewController(vc, animated: true)
-        vc.navigationController?.navigationBar.tintColor = .white
 //        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(image: .searchIcon, style: .plain, target: self, action: #selector(searchTapped))
 //        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(image: .radioIcon, style: .plain, target: self, action: #selector(playRadioStream))
     }
