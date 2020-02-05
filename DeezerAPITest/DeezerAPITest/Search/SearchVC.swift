@@ -9,26 +9,9 @@
 import UIKit
 import Combine
 
-class SearchViewModel {
-    @Published var artists : [Artist]?
-    var term : String! { didSet {
-        getArtists()
-        }}
-    
-    func getArtists() {
-        ApiService.searchArtists(term) { (result: (Result<ApiResponse<Artist>, APIError>)) in
-            switch result {
-            case .success(let response):
-                self.artists = response.data == nil ? [Artist]() : response.data
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-}
-
 class SearchVC: UIViewController {
 
+    // MARK: Variables ------------------------
     var viewModel: SearchViewModel
     var cancelable : AnyCancellable?
     
@@ -39,7 +22,7 @@ class SearchVC: UIViewController {
     var mainCoordinator: MainCoordinator
     let artistCell = String(describing: ArtistTableViewCell.self)
     
-    
+    // MARK: Outlets ------------------------
     @IBOutlet weak var noResultsLabel: UILabel! { didSet {
         noResultsLabel.text = "Oooops! No match!\nTry a different artist."
         noResultsLabel.textColor = .white
@@ -57,13 +40,7 @@ class SearchVC: UIViewController {
         tableView.register(UINib(nibName: artistCell, bundle: nil), forCellReuseIdentifier: artistCell)
         }}
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .background
-        bindViewModel()
-    }
-
-    // MARK: Initialization
+    // MARK: Initialization --------------------
     init(mainCoordinator: MainCoordinator, viewModel: SearchViewModel) {
         self.mainCoordinator = mainCoordinator
         self.viewModel = viewModel
@@ -77,10 +54,17 @@ class SearchVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
     }
+    // ---------------------------------------------------------
     
-    func search() {
-        tableView.showLoader()
-        viewModel.term = searchBar.searchTextField.text ?? ""
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupViews()
+        bindViewModel()
+    }
+
+    // MARK: Methods -------------------------------------
+    func setupViews() {
+        view.backgroundColor = .background
     }
     
     func bindViewModel() {
@@ -88,6 +72,11 @@ class SearchVC: UIViewController {
         .delay(for: .milliseconds(500), scheduler: DispatchQueue.main)
         .receive(on: DispatchQueue.main)
         .assign(to: \.artists, on: self)
+    }
+    
+    func search() {
+        tableView.showLoader()
+        viewModel.term = searchBar.searchTextField.text ?? ""
     }
     
     func refreshViews() {
@@ -109,10 +98,31 @@ class SearchVC: UIViewController {
             }
         }
     }
+    
+    // MARK: Keyboard Methods -----------------
+    func addKeyboardNotifications() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    @objc func adjustForKeyboard(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            tableView.contentInset = .zero
+        } else {
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom, right: 0)
+        }
+        tableView.scrollIndicatorInsets = tableView.contentInset
+    }
 
 }
 
-
+// MARK: TableView delegate methods -----------------
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return artists?.count ?? 0
@@ -142,6 +152,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: SearchBar delegate methods -----------------
 extension SearchVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         search()

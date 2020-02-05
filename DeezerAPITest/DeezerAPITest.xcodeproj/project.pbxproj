@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D743EDFD23EB6F4100199F54 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D743EDFC23EB6F4100199F54 /* SearchViewModel.swift */; };
 		D76413D923E96F0D00763DE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76413D823E96F0D00763DE2 /* AppDelegate.swift */; };
 		D76413DB23E96F0D00763DE2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76413DA23E96F0D00763DE2 /* SceneDelegate.swift */; };
 		D76413DD23E96F0D00763DE2 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76413DC23E96F0D00763DE2 /* SearchVC.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D743EDFC23EB6F4100199F54 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		D76413D523E96F0D00763DE2 /* DeezerAPITest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeezerAPITest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D76413D823E96F0D00763DE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D76413DA23E96F0D00763DE2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 		D796376623E9B86D00F6707D /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				D743EDFC23EB6F4100199F54 /* SearchViewModel.swift */,
 				D76413DC23E96F0D00763DE2 /* SearchVC.swift */,
 				D764140A23E973BC00763DE2 /* SearchVC.xib */,
 			);
@@ -341,6 +344,7 @@
 				D796376C23E9C2F700F6707D /* ViewLoader.swift in Sources */,
 				D76413D923E96F0D00763DE2 /* AppDelegate.swift in Sources */,
 				D796375B23E9A11800F6707D /* ApiRequest.swift in Sources */,
+				D743EDFD23EB6F4100199F54 /* SearchViewModel.swift in Sources */,
 				D796376E23E9E5A400F6707D /* UISearchBar+Extension.swift in Sources */,
 				D796375D23E9A42200F6707D /* ApiService+Search.swift in Sources */,
 				D76413DB23E96F0D00763DE2 /* SceneDelegate.swift in Sources */,
