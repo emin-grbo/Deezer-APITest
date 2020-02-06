@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AlbumsCollectionViewCell" customModule="DeezerAPITest" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="238" height="317"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="238" height="317"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="90Q-3a-qwp">
+                        <rect key="frame" x="0.0" y="0.0" width="238" height="238"/>
+                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="90Q-3a-qwp" secondAttribute="height" multiplier="1:1" id="gMZ-b1-Ro8"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rS8-fh-RxA">
+                        <rect key="frame" x="8" y="248" width="222" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZOz-iI-wJs">
+                        <rect key="frame" x="8" y="270.5" width="222" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="ZOz-iI-wJs" secondAttribute="trailing" constant="8" id="Dea-wI-bwh"/>
+                <constraint firstItem="90Q-3a-qwp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="L5l-uw-rAh"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="rS8-fh-RxA" secondAttribute="trailing" constant="8" id="LaL-lK-cfs"/>
+                <constraint firstAttribute="trailing" secondItem="90Q-3a-qwp" secondAttribute="trailing" id="O5G-qZ-6Sz"/>
+                <constraint firstItem="90Q-3a-qwp" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="UR8-PO-8XF"/>
+                <constraint firstItem="ZOz-iI-wJs" firstAttribute="top" secondItem="rS8-fh-RxA" secondAttribute="bottom" constant="2" id="X0M-b2-P2E"/>
+                <constraint firstItem="ZOz-iI-wJs" firstAttribute="leading" secondItem="rS8-fh-RxA" secondAttribute="leading" id="X5Z-Ci-t3j"/>
+                <constraint firstItem="rS8-fh-RxA" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="8" id="jSd-MY-LRD"/>
+                <constraint firstItem="rS8-fh-RxA" firstAttribute="top" secondItem="90Q-3a-qwp" secondAttribute="bottom" constant="10" id="w7m-wg-GYj"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ZOz-iI-wJs" secondAttribute="bottom" constant="8" id="yLr-eo-MK1"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="238" height="317"/>
+            <connections>
+                <outlet property="albumImage" destination="90Q-3a-qwp" id="85U-rB-V8K"/>
+                <outlet property="albumTitle" destination="rS8-fh-RxA" id="BWk-LK-1eX"/>
+                <outlet property="artist" destination="ZOz-iI-wJs" id="kpK-oe-3gX"/>
+            </connections>
+            <point key="canvasLocation" x="272.46376811594206" y="199.21875"/>
+        </collectionViewCell>
+    </objects>
+</document>

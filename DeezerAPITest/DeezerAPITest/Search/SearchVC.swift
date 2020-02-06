@@ -19,7 +19,7 @@ class SearchVC: UIViewController {
         refreshViews()
         }}
     
-    var mainCoordinator: MainCoordinator
+    var coordinator: MainCoordinator
     let artistCell = String(describing: ArtistTableViewCell.self)
     
     // MARK: Outlets ------------------------
@@ -42,7 +42,7 @@ class SearchVC: UIViewController {
     
     // MARK: Initialization --------------------
     init(mainCoordinator: MainCoordinator, viewModel: SearchViewModel) {
-        self.mainCoordinator = mainCoordinator
+        self.coordinator = mainCoordinator
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -133,15 +133,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: artistCell, for: indexPath) as! ArtistTableViewCell
-        cell.artistImage.image = nil
-        cell.artistName.text = artists?[indexPath.row].name
-        cell.artistImage.fromUrl(artists?[indexPath.row].pictureXl ?? "")
-
-        // Selection color
-        let bgColorView = UIView()
-        bgColorView.backgroundColor = .black
-        cell.selectedBackgroundView = bgColorView
-        
+        cell.artist = artists?[indexPath.row]
         return cell
     }
     
@@ -151,7 +143,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print("selected")
+        coordinator.openAlbumsPage(for: artists?[indexPath.row].id ?? 0)
     }
 }
 
