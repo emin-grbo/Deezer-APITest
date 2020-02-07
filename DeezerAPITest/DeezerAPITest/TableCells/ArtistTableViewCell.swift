@@ -9,23 +9,38 @@
 import UIKit
 
 class ArtistTableViewCell: UITableViewCell {
+    
+    var artist: Artist! { didSet {
+        setupCell()
+        }}
 
     @IBOutlet weak var artistImage: UIImageView!
     @IBOutlet weak var artistName: UILabel! { didSet {
-        artistName.textColor = .white
+        artistName.textColor = .textStandard
+        artistName.font = .standard
         }}
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupViews()
+    }
+    
+    func setupViews() {
         self.backgroundColor = .background
-        // Initialization code
+        // Making the selected view black
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = .black
+        self.selectedBackgroundView = bgColorView
+    }
+    
+    func setupCell() {
+        artistImage.image = nil
+        artistName.text = artist.name
+        artistImage.fromUrl(artist.pictureXl ?? "")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 }

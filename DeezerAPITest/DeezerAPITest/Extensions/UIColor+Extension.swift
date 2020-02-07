@@ -10,13 +10,12 @@ import UIKit
 
 extension UIColor {
     
-class var background:      UIColor { return UIColor(hex: "#232323FF")! }
+    // MARK: Class variables ---------------------------------------
+    class var background:      UIColor { return UIColor(hex: "#232323FF")! }
+    class var textStandard:    UIColor { return UIColor(hex: "#FFFFFFFF")! }
+    class var textDetail:      UIColor { return UIColor(hex: "#A5A5A5FF")! }
     
-}
-
-
-// MARK: Getting the colors from HEX value
-extension UIColor {
+    // MARK: HEX value initialization methods ---------------------------------------
     convenience init(rgbColorRed red: Double, green: Double, blue: Double, alpha: Double) {
         self.init(red: CGFloat(red)/255, green: CGFloat(green)/255, blue: CGFloat(blue)/255,
                   alpha: CGFloat(alpha))

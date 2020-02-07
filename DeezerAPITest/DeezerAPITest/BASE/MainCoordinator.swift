@@ -20,7 +20,12 @@ class MainCoordinator {
         let vm = SearchViewModel()
         let vc = SearchVC(mainCoordinator: self, viewModel: vm)
         navigationController.pushViewController(vc, animated: true)
-//        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(image: .searchIcon, style: .plain, target: self, action: #selector(searchTapped))
-//        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(image: .radioIcon, style: .plain, target: self, action: #selector(playRadioStream))
+    }
+    
+    func openAlbumsPage(for artist: Artist) {
+        let vm = AlbumsViewModel(artist: artist)
+        let vc = AlbumsViewController(coordinator: self, viewModel: vm)
+        vc.title = artist.name
+        navigationController.pushViewController(vc, animated: true)
     }
 }

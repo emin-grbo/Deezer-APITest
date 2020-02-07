@@ -10,7 +10,7 @@ import UIKit
 
 extension UIImageView {
 
-    // MARK: Variables ---------------------------------------
+    // MARK: Class variables ---------------------------------------
     class var clear:    UIImage { return UIImage(named: "clear")! }
     class var search:   UIImage { return UIImage(named: "search")! }
     

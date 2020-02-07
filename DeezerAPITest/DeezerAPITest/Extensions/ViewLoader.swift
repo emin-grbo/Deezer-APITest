@@ -10,12 +10,12 @@ import UIKit
 
 internal class ViewLoader: UIView {
   /// Constants
-  private let gradientWidth: CGFloat = 0.2
-  private let gradientStop: CGFloat = 0.2
+    private let gradientWidth: CGFloat = 0.2
+    private let gradientStop: CGFloat = 0.2
     private let backGrayColor = UIColor.background
     private let firstLoadColor = UIColor.darkGray
-  private var gradientAnimationDuration: TimeInterval = 1.0
-  private var gradientLayer: CAGradientLayer!
+    private var gradientAnimationDuration: TimeInterval = 1.0
+    private var gradientLayer: CAGradientLayer!
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -39,9 +39,6 @@ internal class ViewLoader: UIView {
   }
 
   func setCustom(colors: [UIColor], gradientAnimationDuration: TimeInterval) {
-//    if colors.count != 5 {
-//      assertionFailure("You should send 5 colors in colors array")
-//    }
     var cgColors = [CGColor]()
     colors.forEach({ cgColors.append($0.cgColor) })
     self.gradientLayer.colors = cgColors
@@ -52,10 +49,6 @@ internal class ViewLoader: UIView {
     let gradientAnimation = CABasicAnimation(keyPath: "locations")
     gradientAnimation.fromValue = gradientLayer.locations
     gradientAnimation.toValue = [1, 2, 1.2]
-    
-//    gradientAnimation.fromValue = -frame.size.width
-//    gradientAnimation.toValue   = frame.size.width
-    
     gradientAnimation.duration = gradientAnimationDuration
     gradientAnimation.fillMode = .forwards
     gradientAnimation.repeatCount = .infinity
@@ -86,7 +79,6 @@ internal extension UIView {
 extension UIView {
   func _showLoader() {
     guard let loader = viewLoader else { return }
-
     addSubview(loader)
     loader.startAnimateLayer()
   }
