@@ -12,13 +12,11 @@ import Combine
 class AlbumsViewController: UIViewController {
 
     // MARK: Variables --------------------
-    
     var viewModel: AlbumsViewModel!
     var cancelable: AnyCancellable?
     
-    var albums: [Album]? { didSet {
+    var albums: [AlbumBasic]? { didSet {
         refreshViews()
-        print(albums)
         }}
     
     weak var coordinator: MainCoordinator!
@@ -82,10 +80,12 @@ extension AlbumsViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: albumCell, for: indexPath) as! AlbumsCollectionViewCell
-//        cell.album = albums?[indexPath.row]
-        cell.albumImage.fromUrl(albums?[indexPath.row].cover ?? "")
-        cell.albumTitle.text = albums?[indexPath.row].title
-        cell.artist.text = "Artist"
+        let currentAlbum = albums?[indexPath.row]
+        let currentArtist = viewModel.artist
+        
+        cell.cellAlbum = currentAlbum
+        cell.cellArtist = currentArtist
+        
         return cell
     }
     

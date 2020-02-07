@@ -10,19 +10,19 @@ import Foundation
 
 class AlbumsViewModel {
     
-    @Published var albums : [Album]?
-    let artistID: Int
+    @Published var albums : [AlbumBasic]?
+    var artist: Artist
     
-    init(artistID: Int) {
-        self.artistID = artistID
+    init(artist: Artist) {
+        self.artist = artist
         getArtistAlbums()
     }
     
-    func getArtistAlbums() {
-        ApiService.getAlbums(artistID) { (result: (Result<ApiResponse<Album>, APIError>)) in
+    private func getArtistAlbums() {
+        ApiService.getAlbums(artist.id) { (result: (Result<ApiResponse<AlbumBasic>, APIError>)) in
             switch result {
             case .success(let response):
-                self.albums = response.data == nil ? [Album]() : response.data
+                self.albums = response.data == nil ? [AlbumBasic]() : response.data
             case .failure(let error):
                 print(error)
             }

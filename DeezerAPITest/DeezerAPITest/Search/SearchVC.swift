@@ -143,7 +143,8 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        coordinator.openAlbumsPage(for: artists?[indexPath.row].id ?? 0)
+        guard let selectedArtist = artists?[indexPath.row] else { return }
+        coordinator.openAlbumsPage(for: selectedArtist)
     }
 }
 

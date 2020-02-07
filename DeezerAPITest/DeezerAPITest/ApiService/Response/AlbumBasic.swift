@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct Album : Codable {
-    let id : Int?
+struct AlbumBasic : Codable {
+    let id : Int
     let title : String?
     let link : String?
     let cover : String?
