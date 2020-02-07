@@ -30,6 +30,13 @@ class AlbumsCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupViews()
+    }
+    
+    func setupViews() {
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = .black
+        self.selectedBackgroundView = bgColorView
     }
     
     func populateCell() {

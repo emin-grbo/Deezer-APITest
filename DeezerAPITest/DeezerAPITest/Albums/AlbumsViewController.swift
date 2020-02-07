@@ -80,6 +80,7 @@ extension AlbumsViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: albumCell, for: indexPath) as! AlbumsCollectionViewCell
+        
         let currentAlbum = albums?[indexPath.row]
         let currentArtist = viewModel.artist
         
@@ -87,6 +88,11 @@ extension AlbumsViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.cellArtist = currentArtist
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        print("tappa tappa tappa")
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
