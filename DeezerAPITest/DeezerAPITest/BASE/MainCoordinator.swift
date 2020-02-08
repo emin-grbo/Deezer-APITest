@@ -28,4 +28,10 @@ class MainCoordinator {
         vc.title = artist.name
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func openAlbumDetalPage(album: AlbumBasic) {
+        let vm = AlbumDetailViewModel(album: album)
+        let vc = AlbumDetailViewController(coordinator: self, viewModel: vm)
+        navigationController.pushViewController(vc, animated: true)
+    }
 }

@@ -16,9 +16,9 @@ extension ApiService {
         ApiService.fetchResources(urlString: url, completion: result)
     }
     
-    static func getSingleAlbum(_ albumID: Int, result: @escaping (Result<AlbumDetail, APIError>) -> ()) {
-        // Completing the URL with artist search term
-        let url = String(format: ApiService.ApiCall.album.urlString, "\(albumID)")
-        ApiService.fetchResources(urlString: url, completion: result)
-    }
+//    static func getSingleAlbum(_ albumID: Int, result: @escaping (Result<AlbumDetail, APIError>) -> ()) {
+//        // Completing the URL with artist search term
+//        let url = String(format: ApiService.ApiCall.album.urlString, "\(albumID)")
+//        ApiService.fetchResources(urlString: url, completion: result)
+//    }
 }

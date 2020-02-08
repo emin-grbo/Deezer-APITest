@@ -36,6 +36,7 @@ class SearchVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .background
+        tableView.separatorStyle = .singleLine
         tableView.alpha = 0
         tableView.register(UINib(nibName: artistCell, bundle: nil), forCellReuseIdentifier: artistCell)
         }}
@@ -65,6 +66,7 @@ class SearchVC: UIViewController {
     // MARK: Methods -------------------------------------
     func setupViews() {
         view.backgroundColor = .background
+        tableView.separatorColor = .separatorDark
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
@@ -141,11 +143,20 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         return 60
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let lastVisibleIndexPath = tableView.indexPathsForVisibleRows?.last {
+            if indexPath == lastVisibleIndexPath {
+                tableView.hideLoader()
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let selectedArtist = artists?[indexPath.row] else { return }
         coordinator.openAlbumsPage(for: selectedArtist)
     }
+
 }
 
 // MARK: SearchBar delegate methods -----------------

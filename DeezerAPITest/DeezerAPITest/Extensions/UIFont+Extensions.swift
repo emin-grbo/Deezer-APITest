@@ -12,6 +12,7 @@ extension UIFont {
 
 // MARK: Bold
     class var standard:    UIFont { return systemFont(ofSize: 17, weight: .medium) }
-    class var emphasized:  UIFont { return systemFont(ofSize: 18, weight: .bold) }
+    class var emphasized:  UIFont { return systemFont(ofSize: 18, weight: .medium) }
     class var detail:      UIFont { return systemFont(ofSize: 15, weight: .regular) }
+    class var Xlarge:      UIFont { return systemFont(ofSize: 25, weight: .medium) }
 }

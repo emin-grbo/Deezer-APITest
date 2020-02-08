@@ -14,6 +14,7 @@ extension UIColor {
     class var background:      UIColor { return UIColor(hex: "#232323FF")! }
     class var textStandard:    UIColor { return UIColor(hex: "#FFFFFFFF")! }
     class var textDetail:      UIColor { return UIColor(hex: "#A5A5A5FF")! }
+    class var separatorDark:   UIColor { return UIColor(hex: "#0F0F0FFF")! }
     
     // MARK: HEX value initialization methods ---------------------------------------
     convenience init(rgbColorRed red: Double, green: Double, blue: Double, alpha: Double) {

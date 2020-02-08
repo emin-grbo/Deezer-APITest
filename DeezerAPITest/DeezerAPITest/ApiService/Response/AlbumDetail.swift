@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct AlbumDetail : Codable {
-    let id : Int
-    let title : String?
-    let cover_medium : String?
-    let tracklist : String?
-    let contributors : [Contributors]?
-    let artist : Artist?
-    let tracks : Tracks?
+    //struct AlbumDetail : Codable {
+    //    let id : Int
+    //    let title : String?
+    //    let cover_medium : String?
+    //    let tracklist : String?
+    //    let contributors : [Contributors]?
+    //    let artist : Artist?
+    //    let tracks : Tracks?
 //let upc : String?
 //let link : String?
 //let share : String?
@@ -39,14 +39,14 @@ struct AlbumDetail : Codable {
 //let type : String?
 
 
-enum CodingKeys: String, CodingKey {
-    case id = "id"
-    case title = "title"
-    case cover_medium = "cover_medium"
-    case tracklist = "tracklist"
-    case contributors = "contributors"
-    case artist = "artist"
-    case tracks = "tracks"
+    //enum CodingKeys: String, CodingKey {
+    //    case id = "id"
+    //    case title = "title"
+    //    case cover_medium = "cover_medium"
+    //    case tracklist = "tracklist"
+    //    case contributors = "contributors"
+    //    case artist = "artist"
+    //    case tracks = "tracks"
 //    case upc = "upc"
 //    case link = "link"
 //    case share = "share"
@@ -68,55 +68,21 @@ enum CodingKeys: String, CodingKey {
 //    case explicit_content_lyrics = "explicit_content_lyrics"
 //    case explicit_content_cover = "explicit_content_cover"
 //    case type = "type"
-}
-}
+//}
+//}
 
-struct Tracks : Codable {
-    let trackData : [TrackData]?
-    
-    enum CodingKeys: String, CodingKey {
-        case trackData = "data"
-    }
-}
+//struct Tracks : Codable {
+//    let trackData : [TrackData]?
+//
+//    enum CodingKeys: String, CodingKey {
+//        case trackData = "data"
+//    }
+//}
 
-struct TrackData : Codable {
-    let id : Int?
-    let title : String?
-    let title_short : String?
-    let link : String?
-    let duration : Int?
-    let artist : Artist?
-    //let title_version : String?
-    //let readable : Bool?
-    //let rank : String?
-    //let explicit_lyrics : Bool?
-    //let explicit_content_lyrics : Int?
-    //let explicit_content_cover : Int?
-    //let preview : String?
-    //let type : String?
 
-enum CodingKeys: String, CodingKey {
-
-    case id = "id"
-    case title = "title"
-    case title_short = "title_short"
-    case link = "link"
-    case duration = "duration"
-    case artist = "artist"
-//    case readable = "readable"
-//    case title_version = "title_version"
-//    case rank = "rank"
-//    case explicit_lyrics = "explicit_lyrics"
-//    case explicit_content_lyrics = "explicit_content_lyrics"
-//    case explicit_content_cover = "explicit_content_cover"
-//    case preview = "preview"
-//    case type = "type"
-}
-}
-
-struct Contributors : Codable {
-let id : Int?
-let name : String?
+//    struct Contributors : Codable {
+//    let id : Int?
+//    let name : String?
 //let link : String?
 //let share : String?
 //let picture : String?
@@ -129,9 +95,9 @@ let name : String?
 //let type : String?
 //let role : String?
 
-enum CodingKeys: String, CodingKey {
-    case id = "id"
-    case name = "name"
+    //enum CodingKeys: String, CodingKey {
+    //    case id = "id"
+    //    case name = "name"
 //    case link = "link"
 //    case share = "share"
 //    case picture = "picture"
@@ -143,5 +109,5 @@ enum CodingKeys: String, CodingKey {
 //    case tracklist = "tracklist"
 //    case type = "type"
 //    case role = "role"
-}
-}
+//}
+//}

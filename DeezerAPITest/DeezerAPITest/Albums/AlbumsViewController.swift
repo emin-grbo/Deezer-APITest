@@ -26,6 +26,7 @@ class AlbumsViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView! { didSet {
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.backgroundColor = .background
         collectionView.register(UINib(nibName: albumCell, bundle: nil), forCellWithReuseIdentifier: albumCell)
         }}
     
@@ -92,7 +93,9 @@ extension AlbumsViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        print("tappa tappa tappa")
+        // Opening detail page for the selected album
+        guard let tappedAlbum = albums?[indexPath.row] else { return}
+        coordinator.openAlbumDetalPage(album: tappedAlbum)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

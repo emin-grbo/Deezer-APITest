@@ -26,11 +26,13 @@ extension UIImageView {
                 else { return }
             DispatchQueue.main.async() {
                 self.image = image
+                self.hideLoader()
             }
         }.resume()
     }
     
-    func fromUrl(_ link: String, contentMode mode: UIView.ContentMode = .scaleAspectFill) {  // for swift 4.2 syntax just use ===> mode: UIView.ContentMode
+    func fromUrl(_ link: String, contentMode mode: UIView.ContentMode = .scaleAspectFill) {
+        self.showLoader()
         guard let url = URL(string: link) else { return }
         fromUrl(url, contentMode: mode)
     }
