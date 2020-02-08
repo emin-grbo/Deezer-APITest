@@ -22,6 +22,8 @@ class SearchVC: UIViewController {
     var coordinator: MainCoordinator
     let artistCell = String(describing: ArtistTableViewCell.self)
     
+    let debouncer = Debouncer(timeInterval: 0.5)
+    
     // MARK: Outlets ------------------------
     @IBOutlet weak var noResultsLabel: UILabel! { didSet {
         noResultsLabel.text = "Oooops! No match!\nTry a different artist."
@@ -67,6 +69,8 @@ class SearchVC: UIViewController {
     func setupViews() {
         view.backgroundColor = .background
         tableView.separatorColor = .separatorDark
+        
+        // Notifications for the keyboard
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
@@ -74,14 +78,19 @@ class SearchVC: UIViewController {
     
     func bindViewModel() {
         cancelable = viewModel.$artists
-        .delay(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            // Delay not working as a debouncer, refactor
+//        .delay(for: .milliseconds(500), scheduler: DispatchQueue.main)
         .receive(on: DispatchQueue.main)
         .assign(to: \.artists, on: self)
     }
     
     func search() {
         tableView.showLoader()
-        viewModel.term = searchBar.searchTextField.text ?? ""
+        
+        debouncer.handler = {
+            self.viewModel.term = self.searchBar.searchTextField.text ?? ""
+        }
+        debouncer.renewInterval()
     }
     
     func refreshViews() {

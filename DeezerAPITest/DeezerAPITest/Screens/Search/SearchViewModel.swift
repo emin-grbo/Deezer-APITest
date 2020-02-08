@@ -15,7 +15,6 @@ class SearchViewModel {
         }}
     
     func getArtists() {
-        print("GETTING ARTIST FOR \(term)")
         ApiService.searchArtists(term) { (result: (Result<ApiResponse<Artist>, APIError>)) in
             switch result {
             case .success(let response):
