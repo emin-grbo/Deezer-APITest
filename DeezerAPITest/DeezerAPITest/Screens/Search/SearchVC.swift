@@ -25,7 +25,7 @@ class SearchVC: UIViewController {
     // MARK: Outlets ------------------------
     @IBOutlet weak var noResultsLabel: UILabel! { didSet {
         noResultsLabel.text = "Oooops! No match!\nTry a different artist."
-        noResultsLabel.textColor = .white
+        noResultsLabel.textColor = .semanticTextStandard
         noResultsLabel.alpha = 0
         }}
     @IBOutlet weak var searchBar: UISearchBar! { didSet {
@@ -35,7 +35,7 @@ class SearchVC: UIViewController {
     @IBOutlet weak var tableView: UITableView! { didSet {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = .background
+        tableView.backgroundColor = .semanticBackground
         tableView.separatorStyle = .singleLine
         tableView.alpha = 0
         tableView.register(UINib(nibName: artistCell, bundle: nil), forCellReuseIdentifier: artistCell)
@@ -65,8 +65,8 @@ class SearchVC: UIViewController {
 
     // MARK: Methods -------------------------------------
     func setupViews() {
-        view.backgroundColor = .background
-        tableView.separatorColor = .separatorDark
+        view.backgroundColor = .semanticBackground
+        tableView.separatorColor = .semanticSeparator
         addKeyboardNotifications()
     }
     
@@ -171,7 +171,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    // MARK: Search Header -----
+    // MARK: Search Header ----------------------------------------
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
@@ -182,8 +182,9 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         let filterButton = UIButton(frame: CGRect(origin: CGPoint(x: 16, y: 0), size: CGSize(width: 100, height: 50)))
         filterButton.titleLabel?.font = .standard
         filterButton.setTitle("ARTISTS", for: .normal)
+        filterButton.setTitleColor(.semanticTextStandard, for: .normal)
         filterButton.setImage(UIImage(systemName: "music.mic"), for: .normal)
-        filterButton.tintColor = .white
+        filterButton.tintColor = .semanticTextStandard
 
         // insetting the artists button
         let inset : CGFloat = 20
@@ -192,7 +193,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         filterButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: -(inset * 1.5), bottom: 0, right: inset * 1.5)
         
         header.addSubview(filterButton)
-        header.backgroundColor = .background
+        header.backgroundColor = .semanticBackground
         
         return header
     }

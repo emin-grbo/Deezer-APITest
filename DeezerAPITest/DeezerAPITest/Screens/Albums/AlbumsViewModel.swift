@@ -52,7 +52,7 @@ class AlbumsViewModel {
         let currentArtist = artist
         
         let artist = NSMutableAttributedString(string: currentArtist.name ?? "")
-        let albumsStringAttributes = [NSAttributedString.Key.foregroundColor: UIColor.textDetail]
+        let albumsStringAttributes = [NSAttributedString.Key.foregroundColor: UIColor.semanticTextDetail]
         let albumsString = NSMutableAttributedString(string: "\nAlbums", attributes: albumsStringAttributes)
         artist.append(albumsString)
         label.attributedText = artist

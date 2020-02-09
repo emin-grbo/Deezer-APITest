@@ -19,7 +19,7 @@ extension UIImageView {
         playingView = UIView(frame: self.bounds)
         self.addSubview(playingView)
         
-        playingView.backgroundColor = .background
+        playingView.backgroundColor = .semanticBackground
         playingView.alpha = 0
         
         UIView.animate(withDuration: 0.25) {
@@ -28,7 +28,7 @@ extension UIImageView {
         
         stopButton = UIImageView()
         stopButton.image = UIImage(systemName: "stop.circle.fill")
-        stopButton.tintColor = .white
+        stopButton.tintColor = .semanticTextStandard
         playingView.addSubview(stopButton)
         stopButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

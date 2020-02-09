@@ -14,7 +14,7 @@ class MainCoordinator {
 
     init(navigationController: UINavigationController = UINavigationController()) {
         self.navigationController = navigationController
-        navigationController.navigationBar.tintColor = .white
+        navigationController.navigationBar.tintColor = .semanticTextStandard
     }
 
     func start() {

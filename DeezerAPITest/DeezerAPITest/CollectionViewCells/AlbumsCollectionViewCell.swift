@@ -21,11 +21,11 @@ class AlbumsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var albumImage: UIImageView!
     @IBOutlet weak var albumTitle: UILabel! { didSet {
         albumTitle.font = .emphasized
-        albumTitle.textColor = .textStandard
+        albumTitle.textColor = .semanticTextStandard
         }}
     @IBOutlet weak var artist: UILabel! { didSet {
         artist.font = .detail
-        artist.textColor = .textDetail
+        artist.textColor = .semanticTextDetail
         }}
     
     override func awakeFromNib() {
@@ -35,7 +35,7 @@ class AlbumsCollectionViewCell: UICollectionViewCell {
     
     func setupViews() {
         let bgColorView = UIView()
-        bgColorView.backgroundColor = .black
+        bgColorView.backgroundColor = .semanticBackground
         self.selectedBackgroundView = bgColorView
     }
     

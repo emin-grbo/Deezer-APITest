@@ -26,7 +26,7 @@ class AlbumsViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView! { didSet {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .background
+        collectionView.backgroundColor = .semanticBackground
         collectionView.register(UINib(nibName: albumCell, bundle: nil), forCellWithReuseIdentifier: albumCell)
         }}
     
@@ -55,7 +55,7 @@ class AlbumsViewController: UIViewController {
     }
     
     func setupViews() {
-        view.backgroundColor = .background
+        view.backgroundColor = .semanticBackground
     }
     
     func navBarSetup() {

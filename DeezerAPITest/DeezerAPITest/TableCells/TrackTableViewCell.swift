@@ -17,19 +17,19 @@ class TrackTableViewCell: UITableViewCell {
     // MARK: OUTLETS ------------------
     @IBOutlet weak var trackOrderLabel: UILabel! { didSet {
         trackOrderLabel.font = .Xlarge
-        trackOrderLabel.textColor = .textStandard
+        trackOrderLabel.textColor = .semanticTextStandard
         }}
     @IBOutlet weak var trackTitleLabel: UILabel! { didSet {
         trackTitleLabel.font = .emphasized
-        trackTitleLabel.textColor = .textStandard
+        trackTitleLabel.textColor = .semanticTextStandard
         }}
     @IBOutlet weak var trackArtistLabel: UILabel! { didSet {
         trackArtistLabel.font = .detail
-        trackArtistLabel.textColor = .textDetail
+        trackArtistLabel.textColor = .semanticTextDetail
         }}
     @IBOutlet weak var trackDurationLabel: UILabel! { didSet {
         trackDurationLabel.font = .detail
-        trackDurationLabel.textColor = .textDetail
+        trackDurationLabel.textColor = .semanticTextDetail
         }}
     
     override func awakeFromNib() {
@@ -39,11 +39,7 @@ class TrackTableViewCell: UITableViewCell {
     }
     
     func setupViews() {
-        self.backgroundColor = .background
-        // Making the selected view black
-        let bgColorView = UIView()
-        bgColorView.backgroundColor = .black
-        self.selectedBackgroundView = bgColorView
+        self.backgroundColor = .semanticBackground
     }
     
     func populateCell() {
@@ -56,9 +52,9 @@ class TrackTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
-            self.backgroundColor = .darkGray
+            self.backgroundColor = .semanticTextDetail
         } else {
-            self.backgroundColor = .background
+            self.backgroundColor = .semanticBackground
         }
         // Configure the view for the selected state
     }

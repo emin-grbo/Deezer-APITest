@@ -27,7 +27,7 @@ class AlbumDetailViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView! { didSet {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = .background
+        tableView.backgroundColor = .semanticBackground
         tableView.register(UINib(nibName: trackCell, bundle: nil), forCellReuseIdentifier: trackCell)
         }}
     
@@ -51,13 +51,12 @@ class AlbumDetailViewController: UIViewController {
     
     func setupViews() {
         tableView.showLoader()
-        view.backgroundColor = .background
-        tableView.separatorColor = .separatorDark
+        view.backgroundColor = .semanticBackground
+        tableView.separatorColor = .semanticSeparator
     }
     
     func bindViewModel() {
         cancelable = viewModel.$tracks
-        .delay(for: .milliseconds(500), scheduler: DispatchQueue.main)
         .receive(on: DispatchQueue.main)
         .assign(to: \.tracklist , on: self)
     }
@@ -67,6 +66,7 @@ class AlbumDetailViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        header?.stopPlayingPreview()
         player?.pause()
     }
 
@@ -75,10 +75,12 @@ class AlbumDetailViewController: UIViewController {
 extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let screenWidth = view.frame.width
+        let screenWidth = view.frame.width * 0.7
         header = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenWidth))
         header?.isUserInteractionEnabled = true
         header?.fromUrl(viewModel.album.coverBig ?? "")
+        header?.clipsToBounds = true
+        header?.contentMode = .scaleAspectFill
         let tap = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
         header?.addGestureRecognizer(tap)
         return header
@@ -90,13 +92,8 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
         player?.pause()
     }
     
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
-        headerView.backgroundColor = .red
-    }
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return view.frame.width
+        return view.frame.width * 0.7
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -129,7 +126,7 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
         
         guard let url = URL(string: tracklist?[indexPath.row].preview ?? "") else { return }
         player = AVPlayer(url: url)
-        player?.volume = 0.1
+        player?.volume = 1
         player?.play()
         
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)

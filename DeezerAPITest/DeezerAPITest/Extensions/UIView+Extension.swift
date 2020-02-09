@@ -17,7 +17,7 @@ extension UIViewController {
         loadingContainer = UIView(frame: view.bounds)
         view.addSubview(loadingContainer)
         
-        loadingContainer.backgroundColor = .background
+        loadingContainer.backgroundColor = .semanticBackground
         loadingContainer.alpha = 0
         
         UIView.animate(withDuration: 0.25) {

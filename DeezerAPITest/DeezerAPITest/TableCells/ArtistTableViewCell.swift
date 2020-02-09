@@ -16,7 +16,7 @@ class ArtistTableViewCell: UITableViewCell {
 
     @IBOutlet weak var artistImage: UIImageView!
     @IBOutlet weak var artistName: UILabel! { didSet {
-        artistName.textColor = .textStandard
+        artistName.textColor = .semanticTextStandard
         artistName.font = .standard
         }}
     
@@ -26,10 +26,10 @@ class ArtistTableViewCell: UITableViewCell {
     }
     
     func setupViews() {
-        self.backgroundColor = .background
+        self.backgroundColor = .semanticBackground
         // Making the selected view black
         let bgColorView = UIView()
-        bgColorView.backgroundColor = .black
+        bgColorView.backgroundColor = .semanticBackground
         self.selectedBackgroundView = bgColorView
     }
     

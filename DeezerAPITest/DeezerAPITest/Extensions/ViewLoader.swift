@@ -12,8 +12,8 @@ internal class ViewLoader: UIView {
   /// Constants
     private let gradientWidth: CGFloat = 0.2
     private let gradientStop: CGFloat = 0.2
-    private let backGrayColor = UIColor.background
-    private let firstLoadColor = UIColor.darkGray
+    private let backGrayColor = UIColor.semanticBackground
+    private let firstLoadColor = UIColor.semanticFade
     private var gradientAnimationDuration: TimeInterval = 1.0
     private var gradientLayer: CAGradientLayer!
 
