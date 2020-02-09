@@ -55,7 +55,11 @@ class TrackTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        if selected {
+            self.backgroundColor = .darkGray
+        } else {
+            self.backgroundColor = .background
+        }
         // Configure the view for the selected state
     }
     

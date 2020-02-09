@@ -8,12 +8,15 @@
 
 import UIKit
 import Combine
+import AVFoundation
 
 class AlbumDetailViewController: UIViewController {
 
     var coordinator: MainCoordinator
     var viewModel: AlbumDetailViewModel
     var cancelable: AnyCancellable?
+    var player : AVPlayer?
+    var header : UIImageView?
     
     var tracklist : [Track]? { didSet {
         refreshViews()
@@ -62,6 +65,10 @@ class AlbumDetailViewController: UIViewController {
     func refreshViews() {
         tableView.reloadData()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        player?.pause()
+    }
 
 }
 
@@ -69,9 +76,18 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let screenWidth = view.frame.width
-        let header = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenWidth))
-        header.fromUrl(viewModel.album.coverBig ?? "")
+        header = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenWidth))
+        header?.isUserInteractionEnabled = true
+        header?.fromUrl(viewModel.album.coverBig ?? "")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
+        header?.addGestureRecognizer(tap)
         return header
+    }
+    
+    @objc func headerTapped(_ sender: UITapGestureRecognizer) {
+        header?.stopPlayingPreview()
+        tableView.deselectAllRows(animated: true)
+        player?.pause()
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -108,6 +124,16 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        tableView.deselectAllRows(animated: true)
+        
+        guard let url = URL(string: tracklist?[indexPath.row].preview ?? "") else { return }
+        player = AVPlayer(url: url)
+        player?.volume = 0.1
+        player?.play()
+        
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+        header?.startPlayingPreview()
     }
 
 }

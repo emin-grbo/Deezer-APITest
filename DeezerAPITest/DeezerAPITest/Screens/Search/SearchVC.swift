@@ -171,7 +171,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    // MARK: Search Header -------------------------
+    // MARK: Search Header -----
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
@@ -179,17 +179,21 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = UIView()
         
-        // Filter button hardcoded as it is not used. In the future it can be a swipable collectionView if multiple choices are present.
-        let filterButton = FilterButton(frame: CGRect(origin: CGPoint(x: 16, y: 0), size: CGSize(width: 150, height: 50)),
-                                        title: "artists",
-                                        image: UIImage(systemName: "music.mic")!)
-        let separatorView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 50),
-                                                 size: CGSize(width: view.frame.width, height: 1)))
-        separatorView.backgroundColor = .black
+        let filterButton = UIButton(frame: CGRect(origin: CGPoint(x: 16, y: 0), size: CGSize(width: 100, height: 50)))
+        filterButton.titleLabel?.font = .standard
+        filterButton.setTitle("ARTISTS", for: .normal)
+        filterButton.setImage(UIImage(systemName: "music.mic"), for: .normal)
+        filterButton.tintColor = .white
+
+        // insetting the artists button
+        let inset : CGFloat = 20
+        filterButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
+        filterButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: inset * 1.5, bottom: 0, right: -(inset * 1.5))
+        filterButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: -(inset * 1.5), bottom: 0, right: inset * 1.5)
         
         header.addSubview(filterButton)
-        header.addSubview(separatorView)
         header.backgroundColor = .background
+        
         return header
     }
 
