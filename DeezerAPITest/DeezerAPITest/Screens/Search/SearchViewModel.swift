@@ -18,12 +18,15 @@ class SearchViewModel {
         // If pagination is not active, seach for the term, else, get the next url if there is any.
         let searchTerm = paginationActive ?  next : ApiService.ApiCall.search.urlString + term
         
-        // If user requested next page and there is none, return.
-        if paginationActive && next == nil { return }
+        // If user requested next page and there is none, return but invoke a didSet.
+        if paginationActive && next == nil {
+            self.artists = artists ?? artists
+            return
+        }
         
         ApiService.searchArtists(searchTerm ?? "") { (result: (Result<ApiResponse<Artist>, APIError>)) in
             switch result {
-                
+               
             case .success(let response):
                 if paginationActive {
                     self.artists?.append(contentsOf: response.data!)

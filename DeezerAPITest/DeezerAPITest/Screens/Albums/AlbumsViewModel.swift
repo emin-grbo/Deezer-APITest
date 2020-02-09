@@ -12,18 +12,35 @@ import UIKit
 class AlbumsViewModel {
     
     @Published var albums : [AlbumBasic]?
-    var artist: Artist
+               var artist : Artist
+               var next   : String? = nil
     
     init(artist: Artist) {
         self.artist = artist
         getArtistAlbums()
     }
     
-    private func getArtistAlbums() {
-        ApiService.getAlbums(artist.id) { (result: (Result<ApiResponse<AlbumBasic>, APIError>)) in
+    func getArtistAlbums(paginationActive: Bool = false) {
+        
+        // If pagination is not active, seach for the term, else, get the next url if there is any.
+        let searchTerm = paginationActive ? next : String(format: ApiService.ApiCall.artistAlbums.urlString, "\(artist.id)")
+        
+        // If user requested next page and there is none, return but invoke a didSet.
+        if paginationActive && next == nil {
+            albums = albums ?? albums
+            return
+        }
+        
+        ApiService.getAlbums(searchTerm ?? "") { (result: (Result<ApiResponse<AlbumBasic>, APIError>)) in
             switch result {
             case .success(let response):
-                self.albums = response.data == nil ? [AlbumBasic]() : response.data
+                if paginationActive {
+                    self.albums?.append(contentsOf: response.data!)
+                    self.next = response.next
+                } else {
+                    self.albums = response.data == nil ? [AlbumBasic]() : response.data
+                    self.next = response.next
+                }
             case .failure(let error):
                 print(error)
             }

@@ -12,6 +12,7 @@
 		D743EE0123EB777C00199F54 /* AlbumsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D743EDFF23EB777C00199F54 /* AlbumsViewController.xib */; };
 		D75422DC23EF44FE000783F6 /* AlbumDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75422DB23EF44FE000783F6 /* AlbumDetailViewModel.swift */; };
 		D75422DE23EF6BD2000783F6 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75422DD23EF6BD2000783F6 /* String+Extension.swift */; };
+		D75ABC0223F02ECE00E16881 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75ABC0123F02ECE00E16881 /* UIView+Extension.swift */; };
 		D76413D923E96F0D00763DE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76413D823E96F0D00763DE2 /* AppDelegate.swift */; };
 		D76413DB23E96F0D00763DE2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76413DA23E96F0D00763DE2 /* SceneDelegate.swift */; };
 		D76413DD23E96F0D00763DE2 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76413DC23E96F0D00763DE2 /* SearchVC.swift */; };
@@ -71,6 +72,7 @@
 		D743EDFF23EB777C00199F54 /* AlbumsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumsViewController.xib; sourceTree = "<group>"; };
 		D75422DB23EF44FE000783F6 /* AlbumDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailViewModel.swift; sourceTree = "<group>"; };
 		D75422DD23EF6BD2000783F6 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		D75ABC0123F02ECE00E16881 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		D76413D523E96F0D00763DE2 /* DeezerAPITest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeezerAPITest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D76413D823E96F0D00763DE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D76413DA23E96F0D00763DE2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				D77547E623EC99EF000BA5BA /* UIFont+Extensions.swift */,
 				D7CF170023EEB60B00C616FB /* Int+Extension.swift */,
 				D75422DD23EF6BD2000783F6 /* String+Extension.swift */,
+				D75ABC0123F02ECE00E16881 /* UIView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				D796375D23E9A42200F6707D /* ApiService+Search.swift in Sources */,
 				D76413DB23E96F0D00763DE2 /* SceneDelegate.swift in Sources */,
 				D77547EB23ECA262000BA5BA /* Artist.swift in Sources */,
+				D75ABC0223F02ECE00E16881 /* UIView+Extension.swift in Sources */,
 				D796376A23E9C1AE00F6707D /* UIImage+Extension.swift in Sources */,
 				D77547E923ECA227000BA5BA /* AlbumsViewModel.swift in Sources */,
 				D79E034B23EE0F4300523266 /* Track.swift in Sources */,

@@ -22,8 +22,6 @@ class SearchVC: UIViewController {
     var coordinator: MainCoordinator
     let artistCell = String(describing: ArtistTableViewCell.self)
     
-    let debouncer = Debouncer(timeInterval: 0.5)
-    
     // MARK: Outlets ------------------------
     @IBOutlet weak var noResultsLabel: UILabel! { didSet {
         noResultsLabel.text = "Oooops! No match!\nTry a different artist."
@@ -78,7 +76,7 @@ class SearchVC: UIViewController {
     
     func bindViewModel() {
         cancelable = viewModel.$artists
-        .receive(on: DispatchQueue.main)
+        .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
         .assign(to: \.artists, on: self)
     }
     
@@ -88,11 +86,7 @@ class SearchVC: UIViewController {
         tableView.showLoader()
         
         viewModel.term = self.searchBar.searchTextField.text ?? ""
-        
-        debouncer.handler = {
-            self.viewModel.getArtists()
-        }
-        debouncer.renewInterval()
+        self.viewModel.getArtists()
     }
     
     func refreshViews() {
@@ -100,6 +94,7 @@ class SearchVC: UIViewController {
             // Reloading views
             self.tableView.reloadData()
             self.tableView.hideLoader()
+            self.hideLoadingView()
             
             // Modifying visibility of tableView and no results Label
             if self.artists == nil { // Initial state where both views are hidden
@@ -175,6 +170,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         let scrollHeight = scrollView.frame.size.height
         
         if offset > contentHeight - scrollHeight {
+            showPaginationLoader()
             viewModel.getArtists(paginationActive: true)
         }
     }

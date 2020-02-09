@@ -65,7 +65,6 @@ class AlbumsViewController: UIViewController {
     
     func bindViewModel() {
         cancelable = viewModel.$albums
-        .delay(for: .milliseconds(250), scheduler: DispatchQueue.main)
         .receive(on: DispatchQueue.main)
         .assign(to: \.albums, on: self)
     }
@@ -75,6 +74,7 @@ class AlbumsViewController: UIViewController {
             // Reloading views
             self.collectionView.reloadData()
             self.collectionView.hideLoader()
+            self.hideLoadingView()
         }
     }
 }
@@ -110,6 +110,18 @@ extension AlbumsViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 8, bottom: 0, right: 8)
+    }
+    
+    // Pagination call
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let offset = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let scrollHeight = scrollView.frame.size.height
+        
+        if offset > contentHeight - scrollHeight {
+            showPaginationLoader()
+            viewModel.getArtistAlbums(paginationActive: true)
+        }
     }
     
     
