@@ -67,11 +67,7 @@ class SearchVC: UIViewController {
     func setupViews() {
         view.backgroundColor = .background
         tableView.separatorColor = .separatorDark
-        
-        // Notifications for the keyboard
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        addKeyboardNotifications()
     }
     
     func bindViewModel() {
@@ -173,6 +169,28 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
             showPaginationLoader()
             viewModel.getArtists(paginationActive: true)
         }
+    }
+    
+    // MARK: Search Header -------------------------
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UIView()
+        
+        // Filter button hardcoded as it is not used. In the future it can be a swipable collectionView if multiple choices are present.
+        let filterButton = FilterButton(frame: CGRect(origin: CGPoint(x: 16, y: 0), size: CGSize(width: 150, height: 50)),
+                                        title: "artists",
+                                        image: UIImage(systemName: "music.mic")!)
+        let separatorView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 50),
+                                                 size: CGSize(width: view.frame.width, height: 1)))
+        separatorView.backgroundColor = .black
+        
+        header.addSubview(filterButton)
+        header.addSubview(separatorView)
+        header.backgroundColor = .background
+        return header
     }
 
 }
