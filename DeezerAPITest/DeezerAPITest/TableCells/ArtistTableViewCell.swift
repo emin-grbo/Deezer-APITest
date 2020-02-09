@@ -36,7 +36,7 @@ class ArtistTableViewCell: UITableViewCell {
     func setupCell() {
         artistImage.image = nil
         artistName.text = artist.name
-        artistImage.fromUrl(artist.pictureXl ?? "")
+        artistImage.fromUrl(artist.pictureMedium ?? "")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

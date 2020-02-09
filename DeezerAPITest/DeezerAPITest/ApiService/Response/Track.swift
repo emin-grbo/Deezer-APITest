@@ -10,13 +10,13 @@ import Foundation
 
 struct Track : Codable {
     let id : Int?
-    let title : String?
-    let title_short : String?
-    let link : String?
+    let titleShort : String?
     let duration : Int?
     let artist : Artist?
-    let track_position : Int?
-    let disk_number : Int?
+    let trackPosition : Int?
+    let diskNumber : Int?
+    //let link : String?
+    //let title : String?
     //let title_version : String?
     //let readable : Bool?
     //let rank : String?
@@ -27,15 +27,14 @@ struct Track : Codable {
     //let type : String?
 
 enum CodingKeys: String, CodingKey {
-
-    case id = "id"
-    case title = "title"
-    case title_short = "title_short"
-    case link = "link"
-    case duration = "duration"
-    case artist = "artist"
-    case track_position = "track_position"
-    case disk_number = "disk_number"
+    case id
+    case titleShort = "title_short"
+    case duration
+    case artist
+    case trackPosition = "track_position"
+    case diskNumber = "disk_number"
+//    case link = "link"
+//    case title = "title"
 //    case readable = "readable"
 //    case title_version = "title_version"
 //    case rank = "rank"

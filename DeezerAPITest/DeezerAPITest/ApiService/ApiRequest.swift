@@ -11,6 +11,7 @@ import Foundation
 extension ApiService {
     
 static func fetchResources<T: Decodable>(urlString: String, completion: @escaping (Result<T, APIError>) -> Void) {
+    
     guard let finalUrl = URL(string: urlString), let urlComponents = URLComponents(url: finalUrl, resolvingAgainstBaseURL: true) else {
         completion(.failure(.InvalidURL))
         return
@@ -26,14 +27,18 @@ static func fetchResources<T: Decodable>(urlString: String, completion: @escapin
         switch result {
             case .success(let (response, data)):
                 guard let statusCode = (response as? HTTPURLResponse)?.statusCode, 200..<299 ~= statusCode else {
-                    completion(.failure(.NoDataError))
+                    guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
+                        completion(.failure(.NoDataError))
+                        return
+                    }
+                    completion(.failure(.ServerError(statusCode: statusCode)))
                     return
                 }
                 do {
                     let values = try JSONDecoder().decode(T.self, from: data)
                     completion(.success(values))
                 } catch {
-                    completion(.failure(.NoDataError))
+                    completion(.failure(.BadDataError(error: error)))
                 }
             case .failure(let error):
                 completion(.failure(.ConnectionError(error: error)))

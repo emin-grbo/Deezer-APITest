@@ -9,29 +9,6 @@
 import UIKit
 import Combine
 
-class AlbumDetailViewModel {
-    
-    @Published var tracks: [Track]?
-    let album: AlbumBasic
-    
-    init(album: AlbumBasic) {
-        self.album = album
-        getTracklist()
-    }
-    
-    #warning("Handle the optional")
-    func getTracklist() {
-        ApiService.getTracklist(album.tracklist ?? "") { (result: (Result<ApiResponse<Track>, APIError>)) in
-            switch result {
-            case .success(let response):
-                self.tracks = response.data == nil ? [Track]() : response.data
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-}
-
 class AlbumDetailViewController: UIViewController {
 
     var coordinator: MainCoordinator
@@ -93,8 +70,7 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let screenWidth = view.frame.width
         let header = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenWidth))
-        #warning("handle the optional")
-        header.fromUrl(viewModel.album.cover_big ?? "")
+        header.fromUrl(viewModel.album.coverBig ?? "")
         return header
     }
     
@@ -113,13 +89,8 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: trackCell, for: indexPath) as! TrackTableViewCell
-        
         guard let currentTrack = tracklist?[indexPath.row] else { return UITableViewCell() }
-        
-        cell.trackOrderLabel.text = "\(currentTrack.track_position ?? 0)."
-        cell.trackTitleLabel.text = tracklist?[indexPath.row].title_short
-        cell.trackArtistLabel.text = currentTrack.artist?.name ?? ""
-        cell.trackDurationLabel.text = currentTrack.duration?.formattedTime()
+        cell.track = currentTrack
         return cell
     }
     
@@ -133,6 +104,10 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
                 tableView.hideLoader()
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
 }

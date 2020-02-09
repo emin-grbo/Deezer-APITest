@@ -78,17 +78,19 @@ class SearchVC: UIViewController {
     
     func bindViewModel() {
         cancelable = viewModel.$artists
-            // Delay not working as a debouncer, refactor
-//        .delay(for: .milliseconds(500), scheduler: DispatchQueue.main)
         .receive(on: DispatchQueue.main)
         .assign(to: \.artists, on: self)
     }
     
     func search() {
+        tableView.alpha = 1
+        noResultsLabel.alpha = 0
         tableView.showLoader()
         
+        viewModel.term = self.searchBar.searchTextField.text ?? ""
+        
         debouncer.handler = {
-            self.viewModel.term = self.searchBar.searchTextField.text ?? ""
+            self.viewModel.getArtists()
         }
         debouncer.renewInterval()
     }
@@ -100,13 +102,13 @@ class SearchVC: UIViewController {
             self.tableView.hideLoader()
             
             // Modifying visibility of tableView and no results Label
-            if self.artists == nil {
+            if self.artists == nil { // Initial state where both views are hidden
                 self.noResultsLabel.alpha = 0
                 self.tableView.alpha = 0
-            } else if self.artists?.isEmpty ?? true {
+            } else if self.artists?.isEmpty ?? true { // no results state
                 self.noResultsLabel.alpha = 1
                 self.tableView.alpha = 0
-            } else {
+            } else { // valid results state
                 self.noResultsLabel.alpha = 0
                 self.tableView.alpha = 1
             }
@@ -164,6 +166,17 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let selectedArtist = artists?[indexPath.row] else { return }
         coordinator.openAlbumsPage(for: selectedArtist)
+    }
+    
+    // Pagination call
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let offset = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let scrollHeight = scrollView.frame.size.height
+        
+        if offset > contentHeight - scrollHeight {
+            viewModel.getArtists(paginationActive: true)
+        }
     }
 
 }

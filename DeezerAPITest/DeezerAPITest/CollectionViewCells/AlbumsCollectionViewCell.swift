@@ -40,7 +40,7 @@ class AlbumsCollectionViewCell: UICollectionViewCell {
     }
     
     func populateCell() {
-        albumImage.fromUrl(cellAlbum.cover_medium ?? "")
+        albumImage.fromUrl(cellAlbum.coverMedium ?? "")
         albumTitle.text = cellAlbum.title
     }
 

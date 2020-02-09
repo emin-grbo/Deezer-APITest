@@ -18,13 +18,13 @@ public enum APIError : Error, CustomStringConvertible {
     // Can't connect to the server (maybe offline?)
     case ConnectionError(error: Error)
     // The server responded with a non 200 status code
-    case ServerError(statusCode: Int, error: Error)
+    case ServerError(statusCode: Int)
     // We got no data (0 bytes) back from the server
     case NoDataError
     // The server responded with a non 200 status internal code
     case ServerInternalError(statusCode: Int, message: String?, errors: Any?)
     // Custom Error
-    case CustomError(message: String)
+    case BadDataError(error: Error)
     // Unauthorized access - user not verified
     case NotVerified
 
@@ -34,14 +34,14 @@ public enum APIError : Error, CustomStringConvertible {
             return "Invalid URL"
         case .ConnectionError(let error):
             return "Can't connect to the server (maybe offline?) ❓ Error: \(error.localizedDescription)"
-        case .ServerError(let statusCode, let error):
-            return "The server responded with a non 200 status code ❓ StatusCode: \(statusCode) ❓ Error: \(error.localizedDescription)"
+        case .ServerError(let statusCode):
+            return "The server responded with a non 200 status code ❓ StatusCode: \(statusCode)"
         case .NoDataError:
             return "We got no data (0 bytes) back from the server"
         case .ServerInternalError(let statusCode, let message, let errors):
             return "The server responded with a non 200 status code ❓ StatusCode: \(statusCode) ❓ Message: \(message ?? "") ❓ ServerError: \(String(describing: errors))"
-        case .CustomError(let message):
-            return message
+        case .BadDataError(let error):
+            return "Received bad data: \(error.localizedDescription)"
         case .NotVerified:
             return "User not verified"
         }

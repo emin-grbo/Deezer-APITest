@@ -50,11 +50,17 @@ class AlbumsViewController: UIViewController {
         super.viewDidLoad()
         collectionView.showLoader()
         setupViews()
+        navBarSetup()
         bindViewModel()
     }
     
     func setupViews() {
         view.backgroundColor = .background
+    }
+    
+    func navBarSetup() {
+        // Handling 2 lines for navigation bar with "Albums" string
+        self.navigationItem.titleView = viewModel.topBarTitle()
     }
     
     func bindViewModel() {
@@ -71,7 +77,6 @@ class AlbumsViewController: UIViewController {
             self.collectionView.hideLoader()
         }
     }
-
 }
 
 extension AlbumsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class AlbumsViewModel {
     
@@ -27,6 +28,21 @@ class AlbumsViewModel {
                 print(error)
             }
         }
+    }
+    
+    func topBarTitle() -> UILabel {
+        let label = UILabel()
+        let currentArtist = artist
+        
+        let artist = NSMutableAttributedString(string: currentArtist.name ?? "")
+        let albumsStringAttributes = [NSAttributedString.Key.foregroundColor: UIColor.textDetail]
+        let albumsString = NSMutableAttributedString(string: "\nAlbums", attributes: albumsStringAttributes)
+        artist.append(albumsString)
+        label.attributedText = artist
+        label.numberOfLines = 2
+        label.textAlignment = .center
+        
+        return label
     }
     
 }
