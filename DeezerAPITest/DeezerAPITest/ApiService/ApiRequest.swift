@@ -12,16 +12,12 @@ extension ApiService {
     
 static func fetchResources<T: Decodable>(urlString: String, completion: @escaping (Result<T, APIError>) -> Void) {
     
-    guard let finalUrl = URL(string: urlString), let urlComponents = URLComponents(url: finalUrl, resolvingAgainstBaseURL: true) else {
+    guard let theString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+          let url = URL(string: theString) else {
         completion(.failure(.InvalidURL))
         return
     }
 
-    guard let url = urlComponents.url else {
-        completion(.failure(.InvalidURL))
-        return
-    }
- 
     let session = URLSession.shared
     session.dataTask(with: url) { (result) in
         switch result {

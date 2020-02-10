@@ -9,8 +9,8 @@
 import Foundation
 
 extension ApiService {
-    static func getTracklist(_ url: String, result: @escaping (Result<ApiResponse<Track>, APIError>) -> ()) {
+    static func getTracklist(_ query: String, result: @escaping (Result<ApiResponse<Track>, APIError>) -> ()) {
         // Completing the URL with artist search term
-        ApiService.fetchResources(urlString: url, completion: result)
+        ApiService.fetchResources(urlString: query, completion: result)
     }
 }

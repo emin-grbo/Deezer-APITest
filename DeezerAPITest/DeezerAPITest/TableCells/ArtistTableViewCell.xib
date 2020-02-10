@@ -28,11 +28,19 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no known albums" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BYQ-eY-FXh">
+                        <rect key="frame" x="281" y="72" width="134" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="JXw-Va-waV" secondAttribute="bottom" constant="4" id="5OO-Uq-r2g"/>
                     <constraint firstItem="5a6-Vk-bj4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="UnL-wA-x8W"/>
+                    <constraint firstAttribute="trailing" secondItem="BYQ-eY-FXh" secondAttribute="trailing" constant="8" id="akP-gO-0re"/>
                     <constraint firstItem="JXw-Va-waV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="jQZ-Nj-iz5"/>
+                    <constraint firstAttribute="bottom" secondItem="BYQ-eY-FXh" secondAttribute="bottom" constant="4" id="lyl-gb-jc7"/>
                     <constraint firstItem="5a6-Vk-bj4" firstAttribute="leading" secondItem="JXw-Va-waV" secondAttribute="trailing" constant="8" id="oHp-1Q-4ma"/>
                     <constraint firstItem="JXw-Va-waV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="rLc-b4-6yK"/>
                 </constraints>
@@ -41,6 +49,7 @@
             <connections>
                 <outlet property="artistImage" destination="JXw-Va-waV" id="hxy-s4-7aw"/>
                 <outlet property="artistName" destination="5a6-Vk-bj4" id="I2P-QH-2yM"/>
+                <outlet property="noAlbumsLabel" destination="BYQ-eY-FXh" id="YKP-Je-Kqj"/>
             </connections>
             <point key="canvasLocation" x="212.31884057971016" y="129.57589285714286"/>
         </tableViewCell>

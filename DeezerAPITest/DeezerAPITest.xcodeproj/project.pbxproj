@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D722F1F323F1D990006F0ACD /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D722F1F223F1D990006F0ACD /* Array+Extension.swift */; };
 		D743EDFD23EB6F4100199F54 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D743EDFC23EB6F4100199F54 /* SearchViewModel.swift */; };
 		D743EE0023EB777C00199F54 /* AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D743EDFE23EB777C00199F54 /* AlbumsViewController.swift */; };
 		D743EE0123EB777C00199F54 /* AlbumsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D743EDFF23EB777C00199F54 /* AlbumsViewController.xib */; };
@@ -69,6 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D722F1F223F1D990006F0ACD /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		D743EDFC23EB6F4100199F54 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		D743EDFE23EB777C00199F54 /* AlbumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsViewController.swift; sourceTree = "<group>"; };
 		D743EDFF23EB777C00199F54 /* AlbumsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumsViewController.xib; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				D796376323E9B49C00F6707D /* UIColor+Extension.swift */,
+				D722F1F223F1D990006F0ACD /* Array+Extension.swift */,
 				D75ABC0C23F093F000E16881 /* UITableView+Extension.swift */,
 				D796376D23E9E5A400F6707D /* UISearchBar+Extension.swift */,
 				D796376B23E9C2F700F6707D /* ViewLoader.swift */,
@@ -457,6 +460,7 @@
 				D76413DD23E96F0D00763DE2 /* SearchVC.swift in Sources */,
 				D796375723E98F8900F6707D /* ApiService.swift in Sources */,
 				D79E034423EDE17100523266 /* AlbumDetailViewController.swift in Sources */,
+				D722F1F323F1D990006F0ACD /* Array+Extension.swift in Sources */,
 				D764140923E9720800763DE2 /* MainCoordinator.swift in Sources */,
 				D796375923E995F700F6707D /* ApiResponse.swift in Sources */,
 				D77547E423EC9187000BA5BA /* AlbumsCollectionViewCell.swift in Sources */,

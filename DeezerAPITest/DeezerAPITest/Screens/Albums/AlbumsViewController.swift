@@ -118,7 +118,7 @@ extension AlbumsViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let contentHeight = scrollView.contentSize.height
         let scrollHeight = scrollView.frame.size.height
         
-        if offset > contentHeight - scrollHeight {
+        if offset > contentHeight - scrollHeight * 1.2 {
             showPaginationLoader()
             viewModel.getArtistAlbums(paginationActive: true)
         }

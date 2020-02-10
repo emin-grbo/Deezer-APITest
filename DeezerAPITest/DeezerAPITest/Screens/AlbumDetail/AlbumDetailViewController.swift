@@ -63,10 +63,37 @@ class AlbumDetailViewController: UIViewController {
     
     func refreshViews() {
         tableView.reloadData()
+        self.hideLoadingView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        stopPreview()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        stopPreview()
+    }
+    
+    func playAudioPreview(url : URL) {
+        tableView.deselectAllRows(animated: true)
+
+        let audioSession = AVAudioSession.sharedInstance()
+        do{
+            try audioSession.setCategory(AVAudioSession.Category.playback)
+        }
+        catch{
+            fatalError("playback failed")
+        }
+        
+        player = AVPlayer(url: url)
+        player?.volume = 1
+        player?.play()
+        header?.startPlayingPreview()
+    }
+    
+    @objc func stopPreview() {
         header?.stopPlayingPreview()
+        tableView.deselectAllRows(animated: true)
         player?.pause()
     }
 
@@ -75,25 +102,23 @@ class AlbumDetailViewController: UIViewController {
 extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let screenWidth = view.frame.width * 0.7
+        let screenWidth = view.frame.width
         header = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenWidth))
         header?.isUserInteractionEnabled = true
         header?.fromUrl(viewModel.album.coverBig ?? "")
         header?.clipsToBounds = true
-        header?.contentMode = .scaleAspectFill
+        header?.contentMode = .scaleAspectFit
         let tap = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
         header?.addGestureRecognizer(tap)
         return header
     }
     
     @objc func headerTapped(_ sender: UITapGestureRecognizer) {
-        header?.stopPlayingPreview()
-        tableView.deselectAllRows(animated: true)
-        player?.pause()
+        stopPreview()
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return view.frame.width * 0.7
+        return view.frame.width
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -119,18 +144,27 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
+    // MARK: Plating audio preview
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        tableView.deselectAllRows(animated: true)
         
         guard let url = URL(string: tracklist?[indexPath.row].preview ?? "") else { return }
-        player = AVPlayer(url: url)
-        player?.volume = 1
-        player?.play()
+        playAudioPreview(url: url)
         
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
-        header?.startPlayingPreview()
+        
     }
+    
+    // Pagination call
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let offset = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let scrollHeight = scrollView.frame.size.height
+        
+        if offset > contentHeight - scrollHeight * 1.2 {
+            showPaginationLoader()
+            viewModel.getTracklist(paginationActive: true)
+        }
+    }
+
 
 }

@@ -19,24 +19,25 @@ class ArtistTableViewCell: UITableViewCell {
         artistName.textColor = .semanticTextStandard
         artistName.font = .standard
         }}
+    @IBOutlet weak var noAlbumsLabel: UILabel! { didSet {
+        noAlbumsLabel.text = "no known albums"
+        noAlbumsLabel.font = .detail
+        noAlbumsLabel.textColor = .semanticTextDetail
+        }}
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setupViews()
-    }
-    
-    func setupViews() {
         self.backgroundColor = .semanticBackground
-        // Making the selected view black
-        let bgColorView = UIView()
-        bgColorView.backgroundColor = .semanticBackground
-        self.selectedBackgroundView = bgColorView
     }
     
     func setupCell() {
         artistImage.image = nil
         artistName.text = artist.name
         artistImage.fromUrl(artist.pictureMedium ?? "")
+        if artist.numAlbum == 0 {
+            noAlbumsLabel.isHidden = false
+            self.isUserInteractionEnabled = false
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

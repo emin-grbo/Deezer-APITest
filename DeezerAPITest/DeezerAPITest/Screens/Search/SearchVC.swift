@@ -16,6 +16,7 @@ class SearchVC: UIViewController {
     var cancelable : AnyCancellable?
     
     var artists: [Artist]? { didSet {
+        artists?.removeDuplicates()
         refreshViews()
         }}
     
@@ -137,7 +138,10 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: artistCell, for: indexPath) as! ArtistTableViewCell
-        cell.artist = artists?[indexPath.row]
+        
+        let currentArtist = artists?[indexPath.row]
+        cell.artist = currentArtist
+        
         return cell
     }
     
@@ -165,7 +169,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         let contentHeight = scrollView.contentSize.height
         let scrollHeight = scrollView.frame.size.height
         
-        if offset > contentHeight - scrollHeight {
+        if offset > contentHeight - scrollHeight * 1.2 {
             showPaginationLoader()
             viewModel.getArtists(paginationActive: true)
         }
@@ -185,6 +189,10 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         filterButton.setTitleColor(.semanticTextStandard, for: .normal)
         filterButton.setImage(UIImage(systemName: "music.mic"), for: .normal)
         filterButton.tintColor = .semanticTextStandard
+        
+        let separatorView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 50), size: CGSize(width: view.frame.width, height: 2)))
+        separatorView.backgroundColor = .semanticSeparator
+        header.addSubview(separatorView)
 
         // insetting the artists button
         let inset : CGFloat = 20
@@ -208,6 +216,9 @@ extension SearchVC: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !(artists?.isEmpty ?? true) {
+            tableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+        }
         search()
     }
 }
