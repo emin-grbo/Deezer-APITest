@@ -43,7 +43,3 @@ struct Artist : Codable, Hashable {
         hasher.combine(id)
     }
 }
-
-//extension Artist {
-//    func ==
-//}

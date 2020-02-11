@@ -7,10 +7,29 @@
 //
 
 import Foundation
+import UIKit.UIImage
 
 public enum APIResult<T> {
     case success(T?)
     case failure(APIError)
+}
+
+struct ApiService {
+
+    let cache = NSCache<NSString, UIImage>()
+    static let apiBaseUrl: String = "https://api.deezer.com/"
+
+    enum ApiCall: String {
+        case search                       = "search/artist?q="
+        case artistAlbums                 = "artist/%@/albums/"
+        case album                        = "album/%@"
+        case tracks                       = "album/%@/tracks"
+        case allTracks                    = "album/%@/tracks?limit=%d"
+        
+        var urlString: String {
+            return ApiService.apiBaseUrl + self.rawValue
+        }
+    }
 }
 
 public enum APIError : Error, CustomStringConvertible {
@@ -44,23 +63,6 @@ public enum APIError : Error, CustomStringConvertible {
             return "Received bad data: \(error.localizedDescription)"
         case .NotVerified:
             return "User not verified"
-        }
-    }
-}
-
-struct ApiService {
-
-    static let apiBaseUrl: String = "https://api.deezer.com/"
-
-    enum ApiCall: String {
-        case search                       = "search/artist?q="
-        case artistAlbums                 = "artist/%@/albums/"
-        case album                        = "album/%@"
-        case tracks                       = "album/%@/tracks"
-        case allTracks                    = "album/%@/tracks?limit=%d"
-        
-        var urlString: String {
-            return ApiService.apiBaseUrl + self.rawValue
         }
     }
 }

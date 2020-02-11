@@ -10,8 +10,8 @@ import Foundation
 
 class SearchViewModel {
     @Published var artists : [Artist]?
-               var next    : String? = nil
                var term    : String!
+               var next    : String? = nil
     
     func getArtists(paginationActive: Bool = false) {
         

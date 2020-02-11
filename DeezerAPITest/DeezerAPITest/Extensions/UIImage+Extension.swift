@@ -8,6 +8,8 @@
 
 import UIKit
 
+fileprivate let cache = ApiService().cache
+
 extension UIImageView {
 
     // MARK: Class variables ---------------------------------------
@@ -24,6 +26,9 @@ extension UIImageView {
                 let data = data, error == nil,
                 let image = UIImage(data: data)
                 else { return }
+            // Caching the image
+            let imageCacheKey = NSString(string: url.relativeString)
+            cache.setObject(image, forKey: imageCacheKey)
             DispatchQueue.main.async() {
                 self.image = image
                 self.hideLoader()
@@ -32,6 +37,11 @@ extension UIImageView {
     }
     
     func fromUrl(_ link: String, contentMode mode: UIView.ContentMode = .scaleAspectFill) {
+        let imageCacheKey = NSString(string: link)
+        if let image = cache.object(forKey: imageCacheKey) {
+            self.image = image
+            return
+        }
         self.showLoader()
         guard let url = URL(string: link) else { return }
         fromUrl(url, contentMode: mode)

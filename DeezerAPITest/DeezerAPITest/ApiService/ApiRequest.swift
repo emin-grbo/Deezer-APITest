@@ -12,8 +12,8 @@ extension ApiService {
     
 static func fetchResources<T: Decodable>(urlString: String, completion: @escaping (Result<T, APIError>) -> Void) {
     
-    guard let theString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-          let url = URL(string: theString) else {
+    guard let finalString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+          let url = URL(string: finalString) else {
         completion(.failure(.InvalidURL))
         return
     }

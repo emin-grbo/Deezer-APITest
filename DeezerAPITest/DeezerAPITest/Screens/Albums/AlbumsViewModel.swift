@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class AlbumsViewModel {
-    
     @Published var albums : [Album]?
                var artist : Artist
                var next   : String? = nil

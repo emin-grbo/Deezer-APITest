@@ -261,11 +261,11 @@
 		D796376723E9B87B00F6707D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D796376B23E9C2F700F6707D /* ViewLoader.swift */,
 				D796376323E9B49C00F6707D /* UIColor+Extension.swift */,
 				D722F1F223F1D990006F0ACD /* Array+Extension.swift */,
 				D75ABC0C23F093F000E16881 /* UITableView+Extension.swift */,
 				D796376D23E9E5A400F6707D /* UISearchBar+Extension.swift */,
-				D796376B23E9C2F700F6707D /* ViewLoader.swift */,
 				D796376923E9C1AE00F6707D /* UIImage+Extension.swift */,
 				D75ABC0A23F0857D00E16881 /* UIHeader+Extension.swift */,
 				D77547E623EC99EF000BA5BA /* UIFont+Extensions.swift */,
