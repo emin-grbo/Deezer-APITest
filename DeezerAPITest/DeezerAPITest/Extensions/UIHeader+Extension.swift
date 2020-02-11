@@ -48,4 +48,11 @@ extension UIImageView {
             playingView = nil
         }
     }
+    
+    func refreshLayout() {
+        if playingView != nil {
+            playingView.frame = self.bounds
+        }
+        
+    }
 }

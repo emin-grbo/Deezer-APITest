@@ -23,6 +23,7 @@ class AlbumDetailViewController: UIViewController {
     
     let trackCell = String(describing: TrackTableViewCell.self)
     
+    @IBOutlet weak var albumCoverAspectRatio: NSLayoutConstraint!
     @IBOutlet weak var albumCover: UIImageView! { didSet {
         let tap = UITapGestureRecognizer(target: self, action: #selector(stopPreview))
         albumCover?.addGestureRecognizer(tap)
@@ -50,6 +51,7 @@ class AlbumDetailViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         bindViewModel()
+//        albumCoverAspectRatio.constant = 100
     }
     
     func setupViews() {
@@ -102,6 +104,7 @@ class AlbumDetailViewController: UIViewController {
 
 }
 
+// MARK: TableView Delegate Methods ---------------------------------------------------
 extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -122,7 +125,7 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 32
+        return tableView.numberOfSections == 1 ? 0 : 32
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -169,7 +172,7 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
-    // MARK: Plating audio preview
+    // MARK: Playing audio preview
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         guard let url = URL(string: trackList?[indexPath.row].preview ?? "") else { return }
@@ -178,6 +181,26 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
         
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        var isEnd = false
+        let offset = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let scrollHeight = scrollView.frame.size.height
+
+        if contentHeight - scrollHeight > offset {
+            isEnd = true
+        }
+    
+        self.albumCover.refreshLayout()
+        
+        if isEnd && offset < 150 {
+            UIView.animate(withDuration: 0.2) {
+                self.albumCoverAspectRatio.constant = offset
+            }
+        }
+    }
+
 }
 
 

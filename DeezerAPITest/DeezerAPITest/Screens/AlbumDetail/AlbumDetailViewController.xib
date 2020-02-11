@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AlbumDetailViewController" customModule="DeezerAPITest" customModuleProvider="target">
             <connections>
                 <outlet property="albumCover" destination="MKy-c3-Trs" id="JXp-ae-VSw"/>
+                <outlet property="albumCoverAspectRatio" destination="N7F-Zf-Q3S" id="aag-Lz-Fwc"/>
                 <outlet property="tableView" destination="pN6-we-feR" id="pEG-CZ-3Ml"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -25,7 +26,7 @@
                 <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MKy-c3-Trs">
                     <rect key="frame" x="0.0" y="44" width="414" height="414"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="MKy-c3-Trs" secondAttribute="height" multiplier="1:1" id="gf0-kH-9PJ"/>
+                        <constraint firstAttribute="width" secondItem="MKy-c3-Trs" secondAttribute="height" multiplier="1:1" id="N7F-Zf-Q3S"/>
                     </constraints>
                 </imageView>
             </subviews>
