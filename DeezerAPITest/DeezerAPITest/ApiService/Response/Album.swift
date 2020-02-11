@@ -8,12 +8,14 @@
 
 import Foundation
 
-struct AlbumBasic : Codable {
+struct Album : Codable {
     let id : Int
     let title : String?
     let coverMedium : String?
     let tracklist : String?
     let coverBig : String?
+    let tracks : Tracks?
+    let numOfTracks : Int?
 //    let link : String?
 //    let cover : String?
 //    let cover_small : String?
@@ -31,6 +33,8 @@ struct AlbumBasic : Codable {
         case coverMedium = "cover_medium"
         case tracklist
         case coverBig = "cover_big"
+        case tracks
+        case numOfTracks = "nb_tracks"
 //        case link
 //        case cover
 //        case cover_small = "cover_small"

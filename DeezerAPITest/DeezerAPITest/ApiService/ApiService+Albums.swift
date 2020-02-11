@@ -10,8 +10,14 @@ import Foundation
 
 extension ApiService {
     
-    static func getAlbums(_ query: String, result: @escaping (Result<ApiResponse<AlbumBasic>, APIError>) -> ()) {
+    static func getAlbums(_ query: String, result: @escaping (Result<ApiResponse<Album>, APIError>) -> ()) {
         // Completing the URL with artist search term
         ApiService.fetchResources(urlString: query, completion: result)
+    }
+    
+    static func getSingleAlbumDetail(_ query: String, result: @escaping (Result<Album, APIError>) -> ()) {
+        // Completing the URL with artist search term
+        let url = String(format: ApiService.ApiCall.album.urlString, query)
+        ApiService.fetchResources(urlString: url, completion: result)
     }
 }

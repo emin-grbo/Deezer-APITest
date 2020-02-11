@@ -15,6 +15,8 @@ class MainCoordinator {
     init(navigationController: UINavigationController = UINavigationController()) {
         self.navigationController = navigationController
         navigationController.navigationBar.tintColor = .semanticTextStandard
+        navigationController.navigationBar.isTranslucent = false
+        navigationController.navigationBar.barTintColor = .semanticHeader
     }
 
     func start() {
@@ -32,8 +34,8 @@ class MainCoordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func openAlbumDetalPage(album: AlbumBasic) {
-        let vm = AlbumDetailViewModel(album: album)
+    func openAlbumDetalPage(album: Album) {
+        let vm = AlbumDetailViewModel(albumID: album.id)
         let vc = AlbumDetailViewController(coordinator: self, viewModel: vm)
         vc.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search") , style: .plain, target: self, action: #selector(searchTapped))
         

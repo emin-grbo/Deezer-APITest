@@ -15,7 +15,7 @@ class AlbumsViewController: UIViewController {
     var viewModel: AlbumsViewModel!
     var cancelable: AnyCancellable?
     
-    var albums: [AlbumBasic]? { didSet {
+    var albums: [Album]? { didSet {
         refreshViews()
         }}
     
@@ -56,6 +56,7 @@ class AlbumsViewController: UIViewController {
     
     func setupViews() {
         view.backgroundColor = .semanticBackground
+        topBarSetup()
     }
     
     func navBarSetup() {

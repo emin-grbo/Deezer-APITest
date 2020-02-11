@@ -57,7 +57,7 @@ struct ApiService {
         case artistAlbums                 = "artist/%@/albums/"
         case album                        = "album/%@"
         case tracks                       = "album/%@/tracks"
-
+        case allTracks                    = "album/%@/tracks?limit=%d"
         
         var urlString: String {
             return ApiService.apiBaseUrl + self.rawValue

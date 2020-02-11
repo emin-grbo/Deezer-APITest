@@ -11,7 +11,7 @@ import UIKit
 
 class AlbumsViewModel {
     
-    @Published var albums : [AlbumBasic]?
+    @Published var albums : [Album]?
                var artist : Artist
                var next   : String? = nil
     
@@ -31,14 +31,14 @@ class AlbumsViewModel {
             return
         }
         
-        ApiService.getAlbums(searchTerm ?? "") { (result: (Result<ApiResponse<AlbumBasic>, APIError>)) in
+        ApiService.getAlbums(searchTerm ?? "") { (result: (Result<ApiResponse<Album>, APIError>)) in
             switch result {
             case .success(let response):
                 if paginationActive {
                     self.albums?.append(contentsOf: response.data!)
                     self.next = response.next
                 } else {
-                    self.albums = response.data == nil ? [AlbumBasic]() : response.data
+                    self.albums = response.data == nil ? [Album]() : response.data
                     self.next = response.next
                 }
             case .failure(let error):

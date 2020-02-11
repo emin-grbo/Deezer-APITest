@@ -12,6 +12,7 @@ extension UIColor {
     
     // MARK: Class variables ---------------------------------------
     class var semanticBackground:         UIColor { return UIColor(named: "semanticBackground")! }
+    class var semanticHeader:             UIColor { return UIColor(named: "semanticHeader")! }
     class var semanticTextStandard:       UIColor { return UIColor(named: "semanticTextStandard")! }
     class var semanticTextDetail:         UIColor { return UIColor(named: "semanticTextDetail")! }
     class var semanticSeparator:          UIColor { return UIColor(named: "semanticSeparator")! }

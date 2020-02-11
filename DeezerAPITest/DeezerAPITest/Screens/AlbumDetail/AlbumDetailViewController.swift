@@ -12,13 +12,17 @@ import AVFoundation
 
 class AlbumDetailViewController: UIViewController {
 
-    var coordinator: MainCoordinator
-    var viewModel: AlbumDetailViewModel
-    var cancelable: AnyCancellable?
-    var player : AVPlayer?
-    var header : UIImageView?
+    var coordinator : MainCoordinator
+    var viewModel   : AlbumDetailViewModel
+    var cancelable  : AnyCancellable?
+    var player      : AVPlayer?
+    var header      : UIImageView?
     
-    var tracklist : [Track]? { didSet {
+//    var albumDetails : Album? { didSet {
+//        trackList = albumDetails?.tracks?.trackList
+//        }}
+    
+    var trackList : [Track]? { didSet {
         refreshViews()
         }}
     
@@ -53,12 +57,13 @@ class AlbumDetailViewController: UIViewController {
         tableView.showLoader()
         view.backgroundColor = .semanticBackground
         tableView.separatorColor = .semanticSeparator
+        topBarSetup()
     }
     
     func bindViewModel() {
-        cancelable = viewModel.$tracks
+        cancelable = viewModel.$allTracks
         .receive(on: DispatchQueue.main)
-        .assign(to: \.tracklist , on: self)
+        .assign(to: \.trackList , on: self)
     }
     
     func refreshViews() {
@@ -76,15 +81,14 @@ class AlbumDetailViewController: UIViewController {
     
     func playAudioPreview(url : URL) {
         tableView.deselectAllRows(animated: true)
-
+        
         let audioSession = AVAudioSession.sharedInstance()
-        do{
+        do {
             try audioSession.setCategory(AVAudioSession.Category.playback)
         }
-        catch{
+        catch {
             fatalError("playback failed")
         }
-        
         player = AVPlayer(url: url)
         player?.volume = 1
         player?.play()
@@ -99,17 +103,31 @@ class AlbumDetailViewController: UIViewController {
 
 }
 
+//let screenWidth = view.frame.width
+//header = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenWidth))
+//header?.isUserInteractionEnabled = true
+//header?.fromUrl(viewModel.albumDetails?.coverBig ?? "")
+//header?.clipsToBounds = true
+//header?.contentMode = .scaleAspectFit
+//let tap = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
+//header?.addGestureRecognizer(tap)
+
 extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return trackList?.last?.diskNumber ?? 0
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let screenWidth = view.frame.width
-        header = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenWidth))
-        header?.isUserInteractionEnabled = true
-        header?.fromUrl(viewModel.album.coverBig ?? "")
-        header?.clipsToBounds = true
-        header?.contentMode = .scaleAspectFit
-        let tap = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
-        header?.addGestureRecognizer(tap)
+        let header = UIView(frame: .zero)
+        header.backgroundColor = .semanticHeader
+        
+        let volumeLabel = UILabel(frame: CGRect(origin: CGPoint(x: 8, y: 0), size: CGSize(width: view.frame.width, height: 32)))
+        volumeLabel.font = .standard
+        volumeLabel.textColor = .semanticTextStandard
+        volumeLabel.text = "Volume \(section + 1)"
+        
+        header.addSubview(volumeLabel)
         return header
     }
     
@@ -118,17 +136,39 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return view.frame.width
+        return 32
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tracklist?.count ?? 0
+        
+        // Returning right away if there is only one disc.
+        if trackList?.last?.diskNumber == 1 { return trackList?.count ?? 0 }
+        
+        // Determening how many sections there are, if any.
+        guard let numOfSections = trackList?.last?.diskNumber else { return 0 }
+        
+        for sectionNum in 0...numOfSections {
+            if section == sectionNum {
+                return trackList?.filter({$0.diskNumber == sectionNum + 1}).count ?? 0
+            }
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: trackCell, for: indexPath) as! TrackTableViewCell
-        guard let currentTrack = tracklist?[indexPath.row] else { return UITableViewCell() }
-        cell.track = currentTrack
+
+        guard let numOfSections = trackList?.last?.diskNumber else { return UITableViewCell() }
+        
+        // Determening which section is current and getting the right tracklist.
+        // TODO: API delivers all tracks in order, but add a sort for safe measure.
+        for sectionNum in 0...numOfSections {
+            if indexPath.section == sectionNum {
+                let currentVolume = trackList?.filter({$0.diskNumber == sectionNum + 1})
+                cell.track = currentVolume?[indexPath.row]
+                return cell
+            }
+        }
         return cell
     }
     
@@ -147,7 +187,7 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
     // MARK: Plating audio preview
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let url = URL(string: tracklist?[indexPath.row].preview ?? "") else { return }
+        guard let url = URL(string: trackList?[indexPath.row].preview ?? "") else { return }
         playAudioPreview(url: url)
         
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
@@ -155,16 +195,16 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     // Pagination call
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        let offset = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let scrollHeight = scrollView.frame.size.height
-        
-        if offset > contentHeight - scrollHeight * 1.2 {
-            showPaginationLoader()
-            viewModel.getTracklist(paginationActive: true)
-        }
-    }
+//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        let offset = scrollView.contentOffset.y
+//        let contentHeight = scrollView.contentSize.height
+//        let scrollHeight = scrollView.frame.size.height
+//        
+//        if offset > contentHeight - scrollHeight * 1.2 {
+//            showPaginationLoader()
+//            viewModel.getAlbumDetail(paginationActive: true)
+//        }
+//    }
 
 
 }

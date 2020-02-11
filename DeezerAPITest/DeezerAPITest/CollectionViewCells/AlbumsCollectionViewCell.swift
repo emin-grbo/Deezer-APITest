@@ -11,7 +11,7 @@ import Combine
 
 class AlbumsCollectionViewCell: UICollectionViewCell {
     
-    var cellAlbum : AlbumBasic! { didSet {
+    var cellAlbum : Album! { didSet {
         populateCell()
         }}
     var cellArtist : Artist! { didSet {

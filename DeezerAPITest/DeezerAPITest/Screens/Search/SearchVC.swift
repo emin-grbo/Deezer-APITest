@@ -69,6 +69,7 @@ class SearchVC: UIViewController {
         view.backgroundColor = .semanticBackground
         tableView.separatorColor = .semanticSeparator
         addKeyboardNotifications()
+        topBarSetup()
     }
     
     func bindViewModel() {

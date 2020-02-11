@@ -11,36 +11,35 @@ import UIKit
 
 class AlbumDetailViewModel {
     
-    @Published var tracks: [Track]?
-    let album: AlbumBasic
-    var next : String? = nil
+    @Published var allTracks    : [Track]?
+    var albumDetails : Album?
+    var trackLimit : Int?
+    let albumID : Int
     
-    init(album: AlbumBasic) {
-        self.album = album
-        getTracklist()
+    init(albumID: Int) {
+        self.albumID = albumID
+        getAlbumDetail()
     }
     
-    func getTracklist(paginationActive: Bool = false) {
-        
-        // If pagination is not active, seach for the term, else, get the next url if there is any.
-        let searchTerm = paginationActive ? next : album.tracklist
-        
-        // If user requested next page and there is none, return but invoke a didSet.
-        if paginationActive && next == nil {
-            tracks = tracks ?? tracks
-            return
-        }
-        
-        ApiService.getTracklist(searchTerm ?? "") { (result: (Result<ApiResponse<Track>, APIError>)) in
+    func getAlbumDetail() {
+        ApiService.getSingleAlbumDetail("\(albumID)") { (result: (Result<Album, APIError>)) in
             switch result {
             case .success(let response):
-                if paginationActive {
-                    self.tracks?.append(contentsOf: response.data!)
-                    self.next = response.next
-                } else {
-                    self.tracks = response.data == nil ? [Track]() : response.data
-                    self.next = response.next
-                }
+                self.albumDetails = response
+                self.trackLimit = self.albumDetails?.numOfTracks
+                self.getAllTracks()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func getAllTracks() {
+        guard trackLimit != nil else { return }
+        ApiService.getAllTracks("\(albumID)", limit: trackLimit!) { (result: (Result<ApiResponse<Track>, APIError>)) in
+            switch result {
+            case .success(let response):
+                self.allTracks = response.data
             case .failure(let error):
                 print(error)
             }

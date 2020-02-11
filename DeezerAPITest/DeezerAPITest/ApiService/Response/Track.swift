@@ -8,6 +8,15 @@
 
 import Foundation
 
+
+struct Tracks : Codable {
+    let trackList: [Track]?
+    
+    enum CodingKeys: String, CodingKey {
+        case trackList = "data"
+    }
+}
+
 struct Track : Codable {
     let id : Int?
     let titleShort : String?
