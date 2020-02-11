@@ -14,7 +14,6 @@ struct ApiResponse<T: Codable>: Codable {
     let next : String?
     
     enum CodingKeys: String, CodingKey {
-        
         case data = "data"
         case total = "total"
         case next = "next"

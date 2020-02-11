@@ -37,6 +37,9 @@ class ArtistTableViewCell: UITableViewCell {
         if artist.numAlbum == 0 {
             noAlbumsLabel.isHidden = false
             self.isUserInteractionEnabled = false
+        } else {
+            noAlbumsLabel.isHidden = true
+            self.isUserInteractionEnabled = true
         }
     }
 

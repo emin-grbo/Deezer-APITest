@@ -13,6 +13,7 @@ extension ApiService {
 //        // Completing the URL with artist search term
 //        ApiService.fetchResources(urlString: query, completion: result)
 //    }
+    
     static func getAllTracks(_ albumID: String, limit: Int, result: @escaping (Result<ApiResponse<Track>, APIError>) -> ()) {
             // Completing the URL with artist search term
         let url = String(format: ApiService.ApiCall.allTracks.urlString, albumID, "\(limit)")

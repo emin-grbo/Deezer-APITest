@@ -16,18 +16,17 @@ class AlbumDetailViewController: UIViewController {
     var viewModel   : AlbumDetailViewModel
     var cancelable  : AnyCancellable?
     var player      : AVPlayer?
-    var header      : UIImageView?
-    
-//    var albumDetails : Album? { didSet {
-//        trackList = albumDetails?.tracks?.trackList
-//        }}
-    
+
     var trackList : [Track]? { didSet {
         refreshViews()
         }}
     
     let trackCell = String(describing: TrackTableViewCell.self)
     
+    @IBOutlet weak var albumCover: UIImageView! { didSet {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(stopPreview))
+        albumCover?.addGestureRecognizer(tap)
+        }}
     @IBOutlet weak var tableView: UITableView! { didSet {
         tableView.delegate = self
         tableView.dataSource = self
@@ -69,6 +68,7 @@ class AlbumDetailViewController: UIViewController {
     func refreshViews() {
         tableView.reloadData()
         self.hideLoadingView()
+        albumCover.fromUrl(viewModel.albumDetails?.coverBig ?? "")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -90,27 +90,17 @@ class AlbumDetailViewController: UIViewController {
             fatalError("playback failed")
         }
         player = AVPlayer(url: url)
-        player?.volume = 1
         player?.play()
-        header?.startPlayingPreview()
+        albumCover?.startPlayingPreview()
     }
     
     @objc func stopPreview() {
-        header?.stopPlayingPreview()
+        albumCover?.stopPlayingPreview()
         tableView.deselectAllRows(animated: true)
         player?.pause()
     }
 
 }
-
-//let screenWidth = view.frame.width
-//header = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenWidth))
-//header?.isUserInteractionEnabled = true
-//header?.fromUrl(viewModel.albumDetails?.coverBig ?? "")
-//header?.clipsToBounds = true
-//header?.contentMode = .scaleAspectFit
-//let tap = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
-//header?.addGestureRecognizer(tap)
 
 extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -129,10 +119,6 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
         
         header.addSubview(volumeLabel)
         return header
-    }
-    
-    @objc func headerTapped(_ sender: UITapGestureRecognizer) {
-        stopPreview()
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -161,7 +147,6 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
         guard let numOfSections = trackList?.last?.diskNumber else { return UITableViewCell() }
         
         // Determening which section is current and getting the right tracklist.
-        // TODO: API delivers all tracks in order, but add a sort for safe measure.
         for sectionNum in 0...numOfSections {
             if indexPath.section == sectionNum {
                 let currentVolume = trackList?.filter({$0.diskNumber == sectionNum + 1})
@@ -193,18 +178,18 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
         
     }
-    
-    // Pagination call
-//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        let offset = scrollView.contentOffset.y
-//        let contentHeight = scrollView.contentSize.height
-//        let scrollHeight = scrollView.frame.size.height
-//        
-//        if offset > contentHeight - scrollHeight * 1.2 {
-//            showPaginationLoader()
-//            viewModel.getAlbumDetail(paginationActive: true)
-//        }
-//    }
-
-
 }
+
+
+// Cell sorting in case it is needed, eventho API seems to return tracks already ordered in all cases.
+// Checking if there is a trackPosition else just return the cell as is.
+//guard trackList?[indexPath.row].trackPosition != nil else {
+//    cell.track = currentVolume?[indexPath.row]
+//    return cell
+//}
+//
+//// Re-ordering tracks if needed. Most API results are sorted, but just being safe.
+//// Using forceUnwrap as it was checked for nil beforehand
+//let sortedVolume = currentVolume?.sorted(by: {$0.trackPosition! < $1.trackPosition!})
+//cell.track = sortedVolume?[indexPath.row]
+//return cell
