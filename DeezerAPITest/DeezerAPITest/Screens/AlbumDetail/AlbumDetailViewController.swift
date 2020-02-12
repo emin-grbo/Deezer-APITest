@@ -188,19 +188,18 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
         let contentHeight = scrollView.contentSize.height
         let scrollHeight = scrollView.frame.size.height
 
+        self.albumCover.refreshLayout()
+        
         if contentHeight - scrollHeight > offset {
             isEnd = true
         }
-    
-        self.albumCover.refreshLayout()
-        
+
         if isEnd && offset < 150 {
             UIView.animate(withDuration: 0.2) {
                 self.albumCoverAspectRatio.constant = offset
             }
         }
     }
-
 }
 
 

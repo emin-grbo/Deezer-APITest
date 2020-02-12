@@ -55,6 +55,7 @@ class SearchVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
+        searchBar.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

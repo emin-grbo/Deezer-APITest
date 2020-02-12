@@ -53,6 +53,5 @@ extension UIImageView {
         if playingView != nil {
             playingView.frame = self.bounds
         }
-        
     }
 }
