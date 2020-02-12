@@ -40,6 +40,7 @@ extension UIImageView {
         let imageCacheKey = NSString(string: link)
         if let image = cache.object(forKey: imageCacheKey) {
             self.image = image
+            self.hideLoader()
             return
         }
         self.showLoader()

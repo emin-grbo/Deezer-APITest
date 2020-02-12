@@ -195,9 +195,9 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
         }
 
         if isEnd && offset < 150 {
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
                 self.albumCoverAspectRatio.constant = offset
-            }
+            }, completion: nil)
         }
     }
 }

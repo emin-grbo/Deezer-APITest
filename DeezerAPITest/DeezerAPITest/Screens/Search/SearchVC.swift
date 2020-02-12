@@ -169,7 +169,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         coordinator.openAlbumsPage(for: selectedArtist)
     }
     
-    // Pagination call
+    // MARK: Pagination call
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         let offset = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
@@ -179,6 +179,10 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
             showPaginationLoader()
             viewModel.getArtists(paginationActive: true)
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.searchBar.resignFirstResponder()
     }
     
     // MARK: Search Header ----------------------------------------
