@@ -48,7 +48,7 @@ class AlbumsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.showLoader()
+        view.showLoader()
         setupViews()
         navBarSetup()
         bindViewModel()
@@ -71,10 +71,10 @@ class AlbumsViewController: UIViewController {
     }
     
     func refreshViews() {
+        self.view.hideLoader()
         DispatchQueue.main.async {
             // Reloading views
             self.collectionView.reloadData()
-            self.collectionView.hideLoader()
             self.hideLoadingView()
         }
     }
